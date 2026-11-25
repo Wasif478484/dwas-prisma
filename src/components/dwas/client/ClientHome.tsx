@@ -65,7 +65,9 @@ export function ClientHome() {
     return parts.join(" ");
   }, [dictation.finalText, dictation.interim]);
 
-  const text = draftText || liveText;
+  // Prefer a fresh voice transcript over a stale draft so the mic's words
+  // actually appear in the textarea (C01: "See my words appear and fix them").
+  const text = liveText || draftText;
 
   async function sendToIntake() {
     if (!text.trim() || sending) return;
@@ -83,6 +85,7 @@ export function ClientHome() {
   }
 
   function pickCard(card: (typeof PROBLEM_CARDS)[number]) {
+    dictation.reset();
     setDraftText(t(`problem.prefill.${card.key}` as DictKey));
     setIntake(cardToIntake(card, lang));
     navigate("client-request");
@@ -101,7 +104,11 @@ export function ClientHome() {
       <div className="mt-8 flex flex-col items-center">
         <motion.button
           type="button"
-          onClick={() => (voiceDisabled || dictation.listening ? undefined : dictation.start())}
+          onClick={() => {
+      if (voiceDisabled) return;
+      if (dictation.listening) dictation.stop();
+      else dictation.start();
+    }}
           whileTap={{ scale: 0.94 }}
           disabled={!dictation.supported || voiceDisabled}
           aria-label={dictation.listening ? t("client.micListening") : t("client.micStart")}
