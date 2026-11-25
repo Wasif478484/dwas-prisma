@@ -30,14 +30,26 @@ off, S1 script, quick client/tech/admin navigation).
 ## Run locally
 
 ```bash
-bun install          # or npm install
-bun run db:push      # create the SQLite database from prisma/schema.prisma
-bun scripts/seed.ts  # seed areas, rate table, 24 technicians, 60 bookings, reviews
-bun run dev          # http://localhost:3000
+npm install
+npx prisma generate
+npx prisma db push --accept-data-loss   # create tables in Postgres
+npx tsx scripts/seed.ts                  # seed areas, rate table, 24 technicians, 60 bookings, reviews
+npm run dev                              # http://localhost:3000
 ```
 
-- Reset demo data any time: the admin panel button, or `bun scripts/seed.ts` again.
+- Reset demo data any time: the admin panel button, or `npx tsx scripts/seed.ts` again.
 - Health check: `GET /api/health` (db + LLM reachability).
+
+## Deploy to Vercel
+
+```bash
+vercel link --yes --project <name>
+vercel install neon --non-interactive   # provisions Postgres + sets DATABASE_URL
+vercel env pull                          # get DATABASE_URL locally
+npx prisma db push --accept-data-loss    # create tables on Neon
+npx tsx scripts/seed.ts                  # seed demo data
+vercel deploy --prod --yes --project <name>
+```
 
 ## Architecture
 
