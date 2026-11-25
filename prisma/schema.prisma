@@ -1,0 +1,137 @@
+// DWAS — Digital Work Appointment System
+// Data model adapted from spec section 6 (Firestore) to Prisma/SQLite.
+// List-typed fields are stored as JSON strings (SQLite + Prisma constraint).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id
+  phone     String   @unique
+  name      String
+  role      String // client | technician | admin
+  language  String   @default("en")
+  isSeed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Technician {
+  id             String  @id // same id as the technician user
+  name           String
+  photoUrl       String?
+  workPhotos     String  @default("[]") // JSON string[]
+  trades         String // JSON Trade[]
+  yearsExperience Int     @default(0)
+  bioUr          String?
+  bioEn          String?
+  visitFeePKR    Int?
+  lat            Float
+  lng            Float
+  areaId         String?
+  radiusKm       Float   @default(5)
+  isOnline       Boolean @default(false)
+  lastActiveAt   Float   @default(0) // ms epoch; Float because Int cannot hold Date.now()
+  approvalStatus String  @default("pending") // pending | approved | rejected | suspended
+  badges         String  @default("[]") // JSON string[]
+  trustScore     Int     @default(0)
+  jobsCompleted  Int     @default(0)
+  ratingSum      Int     @default(0)
+  ratingCount    Int     @default(0)
+  avgResponseSec Int?
+  noShowCount    Int     @default(0)
+  isSeed         Boolean @default(false)
+}
+
+model Booking {
+  id            String  @id @default(cuid())
+  clientId      String
+  technicianId  String
+  trade         String
+  jobType       String
+  problemRaw    String
+  summaryEn     String
+  summaryUr     String
+  urgency       String // now | today | tomorrow | flexible
+  emergencyKind String  @default("none") // gas | electrical | fire | flood | none
+  lat           Float
+  lng           Float
+  areaId        String?
+  note          String?
+  priceBandMin  Int?
+  priceBandMax  Int?
+  finalPrice    Int?
+  status        String  @default("requested")
+  statusHistory String  @default("[]") // JSON StatusEntry[]
+  candidates    String  @default("[]") // JSON string[]
+  attempts      String  @default("[]") // JSON Attempt[]
+  expiresAt     Float
+  scheduledFor  Float?
+  photoUrls     String  @default("[]") // JSON string[]
+  phoneRevealed Boolean @default(false)
+  shareToken    String
+  createdAt     Float // ms epoch; Float because Int cannot hold Date.now()
+}
+
+model Review {
+  id           String  @id // equals bookingId — one review per booking is structural
+  bookingId    String  @unique
+  clientId     String
+  technicianId String
+  stars        Int
+  tags         String  @default("[]") // JSON string[]
+  comment      String?
+  hidden       Boolean @default(false)
+  createdAt    Float // ms epoch; Float because Int cannot hold Date.now()
+}
+
+model Area {
+  id   String @id
+  name String
+  city String
+  lat  Float
+  lng  Float
+}
+
+model Rate {
+  id      String @id // trade__jobType
+  trade   String
+  jobType String
+  minPKR  Int
+  maxPKR  Int
+  note    String?
+}
+
+model Complaint {
+  id         String  @id @default(cuid())
+  bookingId  String
+  kind       String
+  text       String
+  raisedBy   String
+  status     String  @default("open") // open | resolved
+  resolvedBy String?
+  note       String?
+  createdAt  Float // ms epoch; Float because Int cannot hold Date.now()
+}
+
+model EventLog {
+  id        String @id @default(cuid())
+  type      String
+  ts        Float // ms epoch; Float because Int cannot hold Date.now()
+  actorRole String
+  meta      String @default("{}") // JSON object
+}
+
+model Audit {
+  id     String  @id @default(cuid())
+  actor  String
+  action String
+  target String
+  note   String?
+  ts     Float // ms epoch; Float because Int cannot hold Date.now()
+}
