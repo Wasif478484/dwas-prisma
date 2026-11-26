@@ -3,7 +3,7 @@
 // Voice failure never blocks the flow (S2).
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, Send, Keyboard, AlertTriangle, Loader2, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,17 @@ export function ClientHome() {
 
   // Prefer a fresh voice transcript over a stale draft so the mic's words
   // actually appear in the textarea (C01: "See my words appear and fix them").
-  const text = liveText || draftText;
+  // Prefer the live mic transcript while listening; otherwise the editable
+  // draft. Committing the transcript on stop keeps it editable afterward.
+  const text = dictation.listening ? liveText : draftText;
+
+  // When a mic session ends with a transcript, commit it to the editable draft
+  // and clear the live buffers so typing keeps working (C01: "fix them").
+  useEffect(() => {
+    if (dictation.listening || !liveText) return;
+    setDraftText(liveText);
+    dictation.reset();
+  }, [dictation.listening, liveText]);
 
   async function sendToIntake() {
     if (!text.trim() || sending) return;
