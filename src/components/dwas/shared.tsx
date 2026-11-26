@@ -75,9 +75,9 @@ export function BadgeChip({ badge }: { badge: string }) {
 
 // ---- Stars ----
 
-export function StarRating({ value, size = 16, onChange }: { value: number; size?: number; onChange?: (v: number) => void }) {
+export function StarRating({ value, size = 16, onChange, ariaLabel }: { value: number; size?: number; onChange?: (v: number) => void; ariaLabel?: string }) {
   return (
-    <span className="inline-flex items-center gap-0.5" role={onChange ? "radiogroup" : undefined} aria-label={`Rating ${value} of 5`}>
+    <span className="inline-flex items-center gap-0.5" role={onChange ? "radiogroup" : undefined} aria-label={ariaLabel ?? `Rating ${value} of 5`}>
       {[1, 2, 3, 4, 5].map((n) => (
         <motion.button
           key={n}
@@ -87,7 +87,7 @@ export function StarRating({ value, size = 16, onChange }: { value: number; size
           whileTap={onChange ? { scale: 0.85 } : undefined}
           whileHover={onChange ? { scale: 1.15 } : undefined}
           className={onChange ? "p-1" : "cursor-default p-0.5"}
-          aria-label={`${n} star${n > 1 ? "s" : ""}`}
+          aria-label={ariaLabel ?? `${n} star${n > 1 ? "s" : ""}`}
         >
           <Star
             style={{ width: size, height: size }}
@@ -213,14 +213,14 @@ export function StatusTracker({ status }: { status: string }) {
 
 // ---- Countdown ring (T03) ----
 
-export function CountdownRing({ seconds, total }: { seconds: number; total: number }) {
+export function CountdownRing({ seconds, total, ariaLabel }: { seconds: number; total: number; ariaLabel?: string }) {
   const pct = Math.max(0, Math.min(1, seconds / total));
   const R = 26;
   const C = 2 * Math.PI * R;
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return (
-    <span className="relative inline-flex h-16 w-16 items-center justify-center" role="timer" aria-label={`${mins}m ${secs}s remaining`}>
+    <span className="relative inline-flex h-16 w-16 items-center justify-center" role="timer" aria-label={ariaLabel ?? `${mins}m ${secs}s remaining`}>
       <svg viewBox="0 0 64 64" className="h-16 w-16 -rotate-90">
         <circle cx="32" cy="32" r={R} fill="none" stroke="oklch(0.92 0.005 90)" strokeWidth="6" />
         <motion.circle

@@ -64,6 +64,7 @@ const TAG_KEYS: Record<string, DictKey> = {
 };
 
 const PIE_COLORS: Record<string, string> = { llm: "#0f766e", rules: "#d97706" };
+const CHART_COLORS = { grid: "#e7e5e4", bar: "#0f766e", fallback: "#a8a29e", surface: "#ffffff" } as const;
 
 const TABS: { id: AdminTab; icon: LucideIcon; label: DictKey }[] = [
   { id: "dashboard", icon: LayoutDashboard, label: "admin.nav.dashboard" },
@@ -339,11 +340,11 @@ export default function AdminPanel() {
             <div role="img" aria-label={t("admin.chart.bookingsPerDay")}>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={s.bookingsPerDay} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e7e5e4" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={CHART_COLORS.grid} />
                   <XAxis dataKey="day" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
                   <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} allowDecimals={false} width={32} />
                   <ChartTooltip cursor={{ fill: "rgba(15,118,110,0.08)" }} />
-                  <Bar dataKey="count" name={t("admin.metric.bookings")} fill="#0f766e" radius={[4, 4, 0, 0]} maxBarSize={26} />
+                  <Bar dataKey="count" name={t("admin.metric.bookings")} fill={CHART_COLORS.bar} radius={[4, 4, 0, 0]} maxBarSize={26} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -354,11 +355,11 @@ export default function AdminPanel() {
             <div role="img" aria-label={t("admin.chart.perTrade")}>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={perTrade} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e7e5e4" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={CHART_COLORS.grid} />
                   <XAxis dataKey="name" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
                   <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} allowDecimals={false} width={32} />
                   <ChartTooltip cursor={{ fill: "rgba(15,118,110,0.08)" }} />
-                  <Bar dataKey="count" name={t("admin.metric.bookings")} fill="#0f766e" radius={[4, 4, 0, 0]} maxBarSize={26} />
+                  <Bar dataKey="count" name={t("admin.metric.bookings")} fill={CHART_COLORS.bar} radius={[4, 4, 0, 0]} maxBarSize={26} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -377,10 +378,10 @@ export default function AdminPanel() {
                     <ChartTooltip />
                     <Pie
                       data={s.intakeSource} dataKey="count" nameKey="source"
-                      innerRadius={36} outerRadius={62} paddingAngle={3} stroke="#ffffff" strokeWidth={2}
+                      innerRadius={36} outerRadius={62} paddingAngle={3} stroke={CHART_COLORS.surface} strokeWidth={2}
                     >
                       {s.intakeSource.map((entry) => (
-                        <Cell key={entry.source} fill={PIE_COLORS[entry.source] ?? "#a8a29e"} />
+                        <Cell key={entry.source} fill={PIE_COLORS[entry.source] ?? CHART_COLORS.fallback} />
                       ))}
                     </Pie>
                   </PieChart>
@@ -392,7 +393,7 @@ export default function AdminPanel() {
                     <span className="flex items-center gap-2">
                       <span
                         className="h-2.5 w-2.5 rounded-sm"
-                        style={{ backgroundColor: PIE_COLORS[entry.source] ?? "#a8a29e" }}
+                        style={{ backgroundColor: PIE_COLORS[entry.source] ?? CHART_COLORS.fallback }}
                         aria-hidden
                       />
                       <span className="font-medium text-stone-700">{entry.source}</span>

@@ -94,7 +94,7 @@ function IncomingCard({ booking, onAccept, onDecline, busy }: {
             className="min-h-16 flex-col gap-0.5 rounded-2xl bg-emerald-600 font-urdu text-xl font-extrabold hover:bg-emerald-700"
           >
             <span className="flex items-center gap-1.5"><Check className="h-5 w-5" aria-hidden />{t("tech.accept")}</span>
-            <span className="text-[10px] font-medium text-emerald-100">Accept</span>
+            <span className="text-[10px] font-medium text-emerald-100">{t("tech.acceptEn")}</span>
           </Button>
           <Button
             onClick={() => setDeclining(true)}
@@ -103,7 +103,7 @@ function IncomingCard({ booking, onAccept, onDecline, busy }: {
             className="min-h-16 flex-col gap-0.5 rounded-2xl border-2 border-rose-300 font-urdu text-xl font-extrabold text-rose-700"
           >
             <span className="flex items-center gap-1.5"><X className="h-5 w-5" aria-hidden />{t("tech.decline")}</span>
-            <span className="text-[10px] font-medium text-rose-400">Decline</span>
+            <span className="text-[10px] font-medium text-rose-400">{t("tech.declineEn")}</span>
           </Button>
         </div>
       ) : (
@@ -125,7 +125,7 @@ function IncomingCard({ booking, onAccept, onDecline, busy }: {
 
       <div className="mt-3 flex items-center justify-between">
         <StatusPill status={booking.status} />
-        <span className="text-[10px] text-stone-400">{lang === "ur" ? "لاگ: " + booking.id.slice(0, 8) : ""}{booking.clientName ? "" : ""}</span>
+        <span className="text-[10px] text-stone-400">{booking.clientName ?? ""}</span>
       </div>
     </motion.div>
   );

@@ -356,6 +356,13 @@ const en = {
   "demo.forceVoiceOff": "Force voice off",
   "demo.script": "Run S1 script",
   "demo.hint": "?demo=1 \u2014 judges can drive every story from here.",
+  "emergency.noAdvice": "No repair advice is provided. DWAS only warns and connects.",
+  "tech.acceptEn": "Accept",
+  "tech.declineEn": "Decline",
+  "tech.job.finishEn": "Finish job",
+  "landing.howItWorks": "How it works",
+  "landing.demoStatValue": "4.8",
+  "landing.demoStatLabel": "32 jobs done",
 };
 
 export type DictKey = keyof typeof en;
@@ -713,6 +720,13 @@ const ur: Record<DictKey, string> = {
   "demo.forceVoiceOff": "آواز بند کریں",
   "demo.script": "S1 اسکرپٹ چلائیں",
   "demo.hint": "?demo=1 — ججس ہر کہانی یہاں سے چلا سکتے ہیں۔",
+  "emergency.noAdvice": "[TODO-REVIEW] No repair advice is provided. DWAS only warns and connects.",
+  "tech.acceptEn": "[TODO-REVIEW] Accept",
+  "tech.declineEn": "[TODO-REVIEW] Decline",
+  "tech.job.finishEn": "[TODO-REVIEW] Finish job",
+  "landing.howItWorks": "[TODO-REVIEW] How it works",
+  "landing.demoStatValue": "4.8",
+  "landing.demoStatLabel": "[TODO-REVIEW] 32 jobs done",
 };
 
 export const dictionaries: Record<Lang, Record<DictKey, string>> = { en, ur };

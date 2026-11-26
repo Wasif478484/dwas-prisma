@@ -74,7 +74,7 @@ function EmergencyNotice({ kind, onContinue }: { kind: string; onContinue: () =>
             {t("emergency.continue")}
           </button>
         </div>
-        <p className="text-[11px] text-rose-200">No repair advice is provided. DWAS only warns and connects.</p>
+        <p className="text-[11px] text-rose-200">{t("emergency.noAdvice")}</p>
       </motion.div>
     </motion.div>
   );

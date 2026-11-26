@@ -58,15 +58,15 @@ export function DemoPanel() {
 
           <div className="mt-2.5 space-y-2">
             {[
-              { key: "demo.autoAccept" as const, value: demo.autoAccept },
-              { key: "demo.forceLLMOff" as const, value: demo.forceLLMOff },
-              { key: "demo.forceVoiceOff" as const, value: demo.forceVoiceOff },
+              { key: "demo.autoAccept" as const, prop: "autoAccept" as const, value: demo.autoAccept },
+              { key: "demo.forceLLMOff" as const, prop: "forceLLMOff" as const, value: demo.forceLLMOff },
+              { key: "demo.forceVoiceOff" as const, prop: "forceVoiceOff" as const, value: demo.forceVoiceOff },
             ].map((row) => (
               <label key={row.key} className="flex items-center justify-between gap-2 text-xs font-semibold text-stone-700">
                 {t(row.key)}
                 <Switch
                   checked={row.value}
-                  onCheckedChange={(v) => setDemo({ [row.key]: v })}
+                  onCheckedChange={(v) => setDemo({ [row.prop]: v })}
                   aria-label={t(row.key)}
                   className="h-6 w-11 data-[state=checked]:bg-teal-600"
                 />
@@ -75,9 +75,9 @@ export function DemoPanel() {
           </div>
 
           <div className="mt-2.5 grid grid-cols-3 gap-1.5">
-            <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("client-home")}>Client</Button>
-            <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("tech-home")}>Tech</Button>
-            <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("admin")}>Admin</Button>
+            <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("client-home")}>{t("admin.demo.role.client")}</Button>
+            <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("tech-home")}>{t("admin.demo.role.technician")}</Button>
+            <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("admin")}>{t("admin.demo.role.admin")}</Button>
           </div>
           <Button size="sm" className="mt-1.5 h-8 w-full bg-teal-600 text-[11px] font-bold hover:bg-teal-700" onClick={runS1Script}>
             {t("demo.script")}

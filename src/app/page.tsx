@@ -79,7 +79,7 @@ function TopBar() {
           )}
           {isTechView && (
             <Button variant="ghost" size="sm" className="h-9 text-xs" onClick={() => navigate("tech-home")} aria-label={t("tech.homeTitle")}>
-              {t("tech.tile.profile")}
+              {t("tech.homeTitle")}
             </Button>
           )}
           <LangToggle />

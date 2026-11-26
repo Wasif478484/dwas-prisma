@@ -244,8 +244,8 @@ export function Landing() {
               className="absolute top-1/3 -right-3 flex items-center gap-1.5 rounded-2xl border border-amber-100 bg-white/95 px-3 py-2 shadow-lg backdrop-blur"
             >
               <Star className="h-4 w-4 fill-amber-400 text-amber-500" aria-hidden />
-              <span className="text-xs font-bold text-stone-800">4.8</span>
-              <span className="text-[10px] text-stone-500">· 32 {t("common.jobs")}</span>
+              <span className="text-xs font-bold text-stone-800">{t("landing.demoStatValue")}</span>
+              <span className="text-[10px] text-stone-500">· {t("landing.demoStatLabel")}</span>
             </motion.div>
           </motion.div>
         </section>
@@ -279,7 +279,7 @@ export function Landing() {
             viewport={{ once: true }}
             className="mb-6 text-center text-2xl font-extrabold tracking-tight text-stone-900"
           >
-            {lang === "ur" ? "کیسے چلتا ہے" : "How it works"}
+            {t("landing.howItWorks")}
           </motion.h2>
           <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, i) => (

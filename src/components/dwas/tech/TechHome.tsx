@@ -67,10 +67,10 @@ export function TechHome() {
     setTimeout(() => setSpeaking(false), 8000);
   }
 
-  const tiles: Array<{ view: "tech-jobs" | "tech-home" | "tech-onboard"; icon: typeof Briefcase; urKey: DictKey; enKey: DictKey; badge?: number; onClick: () => void }> = [
-    { view: "tech-jobs", icon: Briefcase, urKey: "tech.tile.jobs", enKey: "tech.tile.jobsEn", onClick: () => navigate("tech-jobs") },
-    { view: "tech-home", icon: Layers, urKey: "tech.tile.current", enKey: "tech.tile.currentEn", onClick: () => navigate("tech-jobs") },
-    { view: "tech-onboard", icon: UserRound, urKey: "tech.tile.profile", enKey: "tech.tile.profileEn", onClick: () => navigate("tech-onboard") },
+  const tiles: Array<{ icon: typeof Briefcase; urKey: DictKey; enKey: DictKey; badge?: number; onClick: () => void }> = [
+    { icon: Briefcase, urKey: "tech.tile.jobs", enKey: "tech.tile.jobsEn", onClick: () => navigate("tech-jobs") },
+    { icon: Layers, urKey: "tech.tile.current", enKey: "tech.tile.currentEn", onClick: () => navigate("tech-jobs") },
+    { icon: UserRound, urKey: "tech.tile.profile", enKey: "tech.tile.profileEn", onClick: () => navigate("tech-onboard") },
   ];
 
   return (

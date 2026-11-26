@@ -270,7 +270,24 @@ export function ClientHome() {
               key={trade}
               type="button"
               whileTap={{ scale: 0.94 }}
-              onClick={() => pickCard({ key: "tap_leak", trade, jobType: "other" })}
+              onClick={() => {
+                dictation.reset();
+                setDraftText("");
+                setIntake({
+                  trade,
+                  jobType: "other",
+                  urgency: "today",
+                  emergency: { is_emergency: false, kind: "none" },
+                  summary_en: t(`trade.${trade}` as DictKey),
+                  summary_ur: t(`trade.${trade}` as DictKey),
+                  confidence: 1,
+                  language_detected: "roman_ur",
+                  needs_clarification: false,
+                  clarifying_question_ur: null,
+                  source: "rules",
+                });
+                navigate("client-request");
+              }}
               className="flex flex-col items-center gap-1.5 rounded-2xl border border-stone-200 bg-white p-2.5 hover:border-teal-400"
               aria-label={t(`trade.${trade}` as DictKey)}
             >
