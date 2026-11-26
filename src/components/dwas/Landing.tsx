@@ -250,56 +250,6 @@ export function Landing() {
           </motion.div>
         </section>
 
-        {/* Features */}
-        <section className="grid gap-4 pb-14 sm:grid-cols-2 lg:grid-cols-4" aria-label="Why DWAS">
-          {FEATURES.map((feature, i) => (
-            <motion.div
-              key={feature.titleKey}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              whileHover={{ y: -3 }}
-              className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
-            >
-              <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
-                <feature.icon className="h-5 w-5" aria-hidden />
-              </span>
-              <h2 className="text-sm font-bold text-stone-900">{t(feature.titleKey)}</h2>
-              <p className="mt-1.5 text-xs leading-relaxed text-stone-500">{t(feature.bodyKey)}</p>
-            </motion.div>
-          ))}
-        </section>
-
-        {/* How it works */}
-        <section className="pb-16" aria-label="How it works">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mb-6 text-center text-2xl font-extrabold tracking-tight text-stone-900"
-          >
-            {lang === "ur" ? "کیسے چلتا ہے" : "How it works"}
-          </motion.h2>
-          <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((step, i) => (
-              <motion.li
-                key={step}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.35, delay: i * 0.1 }}
-                className="relative flex gap-3 rounded-2xl border border-teal-100 bg-gradient-to-b from-teal-50/60 to-white p-4"
-              >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-600 text-sm font-bold text-white">
-                  {i + 1}
-                </span>
-                <p className="text-sm leading-relaxed font-medium text-stone-700">{t(step)}</p>
-                <ChevronRight className="flip-rtl absolute top-1/2 -right-2 hidden h-5 w-5 -translate-y-1/2 text-teal-300 lg:block" aria-hidden />
-              </motion.li>
-            ))}
-          </ol>
-        </section>
       </main>
 
       {/* Store-driven login dialog (opened by the two entry buttons) */}
