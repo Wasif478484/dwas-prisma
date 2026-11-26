@@ -41,3 +41,6 @@ The spec (docs/SPEC.pdf) wins on every conflict.
 - **Audio pack (D11).** speechSynthesis is used directly (Chrome ships Urdu voices on Android);
   no pre-generated clips in this build. The player degrades silently when no voice exists.
 - **Trust labels.** Badges never say "verified"; the honest label is "Admin-approved" (§7.3).
+
+## System design (SYSTEM_DESIGN.md)
+- Scaling roadmap documented in SYSTEM_DESIGN.md (Phase 0/1/2). Assumptions and choices recorded there since the spec is silent on scaling.
