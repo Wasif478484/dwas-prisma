@@ -1,7 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Noto_Naskh_Arabic } from "next/font/google";
+import { Bricolage_Grotesque, Inter, Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+
+// Display face for headlines (warm, slightly quirky — avoids the default-SaaS
+// look), Inter for dense UI text, Naskh for Urdu script.
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,7 +33,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0f766e",
+  themeColor: "#155A48",
 };
 
 export default function RootLayout({
@@ -35,7 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${notoUrdu.variable} antialiased bg-background text-foreground`}>
+      <body
+        className={`${display.variable} ${inter.variable} ${notoUrdu.variable} antialiased bg-background text-foreground`}
+      >
         {children}
         <Toaster />
       </body>

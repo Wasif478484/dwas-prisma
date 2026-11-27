@@ -30,15 +30,15 @@ function NumPad({ value, onChange, onSubmit, band, busy }: {
   const num = Number(value || 0);
   const overBand = band !== null && num > band.max * 1.25;
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-4">
-      <p className="font-urdu text-lg font-bold text-stone-900" dir="rtl">{t("tech.job.price")}</p>
-      <p className="text-[11px] text-stone-500">{t("tech.job.priceHint")}</p>
-      <div className="mt-3 rounded-xl bg-stone-50 px-4 py-3 text-center">
-        <span className="text-3xl font-extrabold tabular-nums text-teal-800">{value || "0"}</span>
-        <span className="ms-1 text-sm font-semibold text-stone-400">{t("common.pkr")}</span>
+    <div className="dw-card rounded-3xl p-4 sm:p-5">
+      <p className="font-urdu text-lg font-bold text-ink-900" dir="rtl">{t("tech.job.price")}</p>
+      <p className="text-[11px] text-ink-500">{t("tech.job.priceHint")}</p>
+      <div className="mt-3 rounded-xl bg-ink-50 px-4 py-3 text-center">
+        <span className="text-3xl font-extrabold tabular-nums text-brand-800">{value || "0"}</span>
+        <span className="ms-1 text-sm font-semibold text-ink-400">{t("common.pkr")}</span>
       </div>
       {band && (
-        <p className="mt-2 text-center text-xs text-stone-500">
+        <p className="mt-2 text-center text-xs text-ink-500">
           {t("tech.job.band")}: <PriceBand min={band.min} max={band.max} className="text-sm" />
         </p>
       )}
@@ -54,7 +54,7 @@ function NumPad({ value, onChange, onSubmit, band, busy }: {
             key={digit}
             type="button"
             onClick={() => onChange((value + digit).replace(/^0+(?=\d)/, "").slice(0, 7))}
-            className="min-h-14 rounded-xl border border-stone-200 bg-white text-xl font-extrabold tabular-nums text-stone-800 hover:bg-teal-50 active:bg-teal-100"
+            className="min-h-14 rounded-xl border border-ink-200 bg-white text-xl font-extrabold tabular-nums text-ink-800 hover:bg-brand-50 active:bg-brand-100"
             aria-label={digit}
           >
             {digit}
@@ -63,7 +63,7 @@ function NumPad({ value, onChange, onSubmit, band, busy }: {
         <button
           type="button"
           onClick={() => onChange(value.slice(0, -1))}
-          className="flex min-h-14 items-center justify-center rounded-xl border border-stone-200 bg-white text-stone-600 hover:bg-stone-50"
+          className="flex min-h-14 items-center justify-center rounded-xl border border-ink-200 bg-white text-ink-600 hover:bg-ink-50"
           aria-label="backspace"
         >
           <Trash className="h-5 w-5" aria-hidden />
@@ -120,7 +120,7 @@ export function TechJob() {
   if (!booking) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <Loader2 className="h-6 w-6 animate-spin text-teal-600" aria-hidden />
+        <Loader2 className="h-6 w-6 animate-spin text-brand-600" aria-hidden />
       </div>
     );
   }
@@ -155,43 +155,43 @@ export function TechJob() {
         : null;
 
   return (
-    <div className="mx-auto w-full max-w-lg px-4 pt-4 pb-10">
-      <button type="button" onClick={() => navigate("tech-jobs")} className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 hover:text-teal-700">
+    <div className="mx-auto w-full max-w-2xl px-4 pt-4 pb-16 sm:px-6 sm:pt-6">
+      <button type="button" onClick={() => navigate("tech-jobs")} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 hover:text-brand-700">
         <ChevronLeft className="flip-rtl h-4 w-4" aria-hidden />
         {t("common.back")}
       </button>
 
       <div className="mt-3 flex items-center justify-between gap-2">
-        <h1 className="font-urdu text-xl font-extrabold text-stone-900" dir="rtl">{t("booking.job")}</h1>
+        <h1 className="font-urdu text-xl font-extrabold text-ink-900" dir="rtl">{t("booking.job")}</h1>
         <StatusPill status={booking.status} />
       </div>
 
-      <div className="mt-3 rounded-2xl border border-stone-200 bg-white p-4">
-        <p className="font-urdu text-xl leading-relaxed font-bold text-stone-900" dir="rtl">{booking.summary_ur || booking.summary_en}</p>
-        <p className="mt-1 text-xs text-stone-500" dir="ltr">{booking.summary_en}</p>
+      <div className="mt-3 dw-card rounded-3xl p-4 sm:p-5">
+        <p className="font-urdu text-xl leading-relaxed font-bold text-ink-900" dir="rtl">{booking.summary_ur || booking.summary_en}</p>
+        <p className="mt-1 text-xs text-ink-500" dir="ltr">{booking.summary_en}</p>
         <div className="mt-3 grid grid-cols-2 gap-2 text-center">
-          <div className="rounded-xl bg-stone-50 p-2.5">
-            <p className="text-[10px] font-semibold text-stone-400">{t("tech.job.area")}</p>
-            <p className="mt-0.5 flex items-center justify-center gap-1 text-xs font-bold text-stone-800">
+          <div className="rounded-xl bg-ink-50 p-2.5">
+            <p className="text-[10px] font-semibold text-ink-400">{t("tech.job.area")}</p>
+            <p className="mt-0.5 flex items-center justify-center gap-1 text-xs font-bold text-ink-800">
               <MapPin className="h-3 w-3" aria-hidden />
               {booking.location.areaId?.replace(/-/g, " ") ?? "—"}
             </p>
           </div>
-          <div className="rounded-xl bg-stone-50 p-2.5">
-            <p className="text-[10px] font-semibold text-stone-400">{t("booking.priceBand")}</p>
-            <p className="mt-0.5 text-xs font-bold text-teal-800">
+          <div className="rounded-xl bg-ink-50 p-2.5">
+            <p className="text-[10px] font-semibold text-ink-400">{t("booking.priceBand")}</p>
+            <p className="mt-0.5 text-xs font-bold text-brand-800">
               {booking.priceBand ? `${booking.priceBand.min.toLocaleString()}–${booking.priceBand.max.toLocaleString()}` : "—"}
             </p>
           </div>
         </div>
-        {booking.location.note && <p className="mt-2 text-xs text-stone-500">{booking.location.note}</p>}
+        {booking.location.note && <p className="mt-2 text-xs text-ink-500">{booking.location.note}</p>}
       </div>
 
       {/* Client contact appears after accept (C12) */}
       {booking.contact?.phone ? (
         <div className="mt-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
           <p className="text-xs font-bold tracking-wide text-emerald-700 uppercase">{t("tech.job.clientContact")}</p>
-          <p className="mt-1 text-sm font-bold text-stone-900">{booking.contact.name}</p>
+          <p className="mt-1 text-sm font-bold text-ink-900">{booking.contact.name}</p>
           <p className="text-sm font-semibold tabular-nums text-emerald-900" dir="ltr">{booking.contact.phone}</p>
           <div className="mt-2.5 grid grid-cols-2 gap-2">
             <a href={`tel:${booking.contact.phone}`} className="flex h-11 items-center justify-center gap-1.5 rounded-xl bg-emerald-600 text-sm font-bold text-white">
@@ -208,7 +208,7 @@ export function TechJob() {
           </div>
         </div>
       ) : (
-        <p className="mt-3 rounded-xl border border-stone-200 bg-white p-3 text-xs text-stone-500">{t("booking.contactHidden")}</p>
+        <p className="mt-3 rounded-xl border border-ink-200 bg-white p-3 text-xs text-ink-500">{t("booking.contactHidden")}</p>
       )}
 
       {/* Big status button (T04) */}
@@ -217,13 +217,13 @@ export function TechJob() {
           <Button
             onClick={() => void move(nextAction.to)}
             disabled={busy}
-            className="mt-4 min-h-20 w-full flex-col gap-0.5 rounded-2xl bg-teal-600 font-urdu text-2xl font-extrabold shadow-lg shadow-teal-600/25 hover:bg-teal-700"
+            className="mt-4 min-h-20 w-full flex-col gap-0.5 rounded-2xl bg-brand-600 font-urdu text-2xl font-extrabold shadow-lg shadow-brand-600/25 hover:bg-brand-700"
           >
             <span className="flex items-center gap-2">
               <Volume2 className="h-6 w-6" aria-hidden />
               {t(nextAction.urKey)}
             </span>
-            <span className="text-[11px] font-medium text-teal-100">{nextAction.en}</span>
+            <span className="text-[11px] font-medium text-brand-100">{nextAction.en}</span>
           </Button>
         </motion.div>
       )}
@@ -238,10 +238,10 @@ export function TechJob() {
                 speak(t("tech.job.price"), "ur-PK");
               }}
               disabled={busy}
-              className="mt-4 min-h-20 w-full flex-col gap-0.5 rounded-2xl bg-teal-600 font-urdu text-2xl font-extrabold shadow-lg shadow-teal-600/25 hover:bg-teal-700"
+              className="mt-4 min-h-20 w-full flex-col gap-0.5 rounded-2xl bg-brand-600 font-urdu text-2xl font-extrabold shadow-lg shadow-brand-600/25 hover:bg-brand-700"
             >
               {t("tech.job.complete")}
-              <span className="text-[11px] font-medium text-teal-100">Enter final price</span>
+              <span className="text-[11px] font-medium text-brand-100">Enter final price</span>
             </Button>
           ) : (
             <div className="mt-4">

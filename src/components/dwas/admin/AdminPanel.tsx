@@ -79,17 +79,17 @@ const TABS: { id: AdminTab; icon: LucideIcon; label: DictKey }[] = [
 function MetricCard({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
   return (
     <Card className="gap-1.5 p-4">
-      <div className="flex items-center gap-1.5 text-xs font-medium text-stone-500">
-        <Icon className="h-3.5 w-3.5 shrink-0 text-teal-700" aria-hidden />
+      <div className="flex items-center gap-1.5 text-xs font-medium text-ink-500">
+        <Icon className="h-3.5 w-3.5 shrink-0 text-brand-700" aria-hidden />
         <span className="line-clamp-2">{label}</span>
       </div>
-      <p className="text-xl font-bold tabular-nums text-stone-900">{value}</p>
+      <p className="text-xl font-bold tabular-nums text-ink-900">{value}</p>
     </Card>
   );
 }
 
 function EmptyState({ text }: { text: string }) {
-  return <p className="rounded-xl bg-stone-50 py-8 text-center text-sm text-stone-500">{text}</p>;
+  return <p className="rounded-xl bg-ink-50 py-8 text-center text-sm text-ink-500">{text}</p>;
 }
 
 // Icon-only trade glyph with an accessible name (colour/icon never the only signal).
@@ -149,7 +149,7 @@ function TechActions({
     return (
       <Button
         size="sm" variant="outline" disabled={busy}
-        className="border-teal-300 text-teal-700 hover:bg-teal-50 hover:text-teal-800"
+        className="border-brand-300 text-brand-700 hover:bg-brand-50 hover:text-brand-800"
         onClick={() => onApprove(tech)}
       >
         <ShieldCheck aria-hidden />
@@ -162,7 +162,7 @@ function TechActions({
 
 function SeedTag({ t }: { t: (key: DictKey) => string }) {
   return (
-    <Badge variant="outline" className="border-stone-300 bg-stone-50 text-stone-500">
+    <Badge variant="outline" className="border-ink-300 bg-ink-50 text-ink-500">
       {t("admin.isSeed")}
     </Badge>
   );
@@ -336,7 +336,7 @@ export default function AdminPanel() {
 
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="gap-3 p-4">
-            <CardTitle className="text-sm font-semibold text-stone-700">{t("admin.chart.bookingsPerDay")}</CardTitle>
+            <CardTitle className="text-sm font-semibold text-ink-700">{t("admin.chart.bookingsPerDay")}</CardTitle>
             <div role="img" aria-label={t("admin.chart.bookingsPerDay")}>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={s.bookingsPerDay} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
@@ -351,7 +351,7 @@ export default function AdminPanel() {
           </Card>
 
           <Card className="gap-3 p-4">
-            <CardTitle className="text-sm font-semibold text-stone-700">{t("admin.chart.perTrade")}</CardTitle>
+            <CardTitle className="text-sm font-semibold text-ink-700">{t("admin.chart.perTrade")}</CardTitle>
             <div role="img" aria-label={t("admin.chart.perTrade")}>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={perTrade} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
@@ -367,7 +367,7 @@ export default function AdminPanel() {
         </div>
 
         <Card className="gap-3 p-4">
-          <CardTitle className="text-sm font-semibold text-stone-700">{t("admin.chart.intakeSource")}</CardTitle>
+          <CardTitle className="text-sm font-semibold text-ink-700">{t("admin.chart.intakeSource")}</CardTitle>
           {s.intakeSource.length === 0 ? (
             <EmptyState text={t("admin.queueEmpty")} />
           ) : (
@@ -396,9 +396,9 @@ export default function AdminPanel() {
                         style={{ backgroundColor: PIE_COLORS[entry.source] ?? CHART_COLORS.fallback }}
                         aria-hidden
                       />
-                      <span className="font-medium text-stone-700">{entry.source}</span>
+                      <span className="font-medium text-ink-700">{entry.source}</span>
                     </span>
-                    <span className="font-semibold tabular-nums text-stone-900">{entry.count}</span>
+                    <span className="font-semibold tabular-nums text-ink-900">{entry.count}</span>
                   </li>
                 ))}
               </ul>
@@ -416,7 +416,7 @@ export default function AdminPanel() {
     return (
       <div className="space-y-5">
         <section aria-labelledby="admin-pending-heading" className="space-y-3">
-          <h2 id="admin-pending-heading" className="flex items-center gap-2 text-sm font-semibold text-stone-700">
+          <h2 id="admin-pending-heading" className="flex items-center gap-2 text-sm font-semibold text-ink-700">
             {t("admin.metric.pending")}
             <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-bold tabular-nums text-amber-800">
               {pending.length}
@@ -430,7 +430,7 @@ export default function AdminPanel() {
                 <Card key={tech.id} className="gap-3 border-l-4 border-l-amber-400 p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="truncate font-semibold text-stone-900">{tech.name}</p>
+                      <p className="truncate font-semibold text-ink-900">{tech.name}</p>
                       <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                         {tech.trades.map((tr) => <TradeGlyph key={tr} trade={tr} />)}
                       </div>
@@ -445,27 +445,27 @@ export default function AdminPanel() {
         </section>
 
         <section aria-labelledby="admin-tech-all-heading" className="space-y-3">
-          <h2 id="admin-tech-all-heading" className="text-sm font-semibold text-stone-700">
-            {t("admin.nav.technicians")} <span className="font-normal text-stone-400">({all.length})</span>
+          <h2 id="admin-tech-all-heading" className="text-sm font-semibold text-ink-700">
+            {t("admin.nav.technicians")} <span className="font-normal text-ink-400">({all.length})</span>
           </h2>
           {all.length === 0 ? (
             <EmptyState text={t("admin.queueEmpty")} />
           ) : (
-            <div className="max-h-[420px] overflow-y-auto scroll-slim rounded-xl border border-stone-200 bg-white">
+            <div className="max-h-[420px] overflow-y-auto scroll-slim rounded-xl border border-ink-200 bg-white">
               {/* Stacked cards — small screens */}
               <div className="space-y-2 p-3 md:hidden">
                 {all.map((tech) => (
                   <Card key={tech.id} className="gap-2 p-4">
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <p className="truncate font-semibold text-stone-900">{tech.name}</p>
+                        <p className="truncate font-semibold text-ink-900">{tech.name}</p>
                         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                           {tech.trades.map((tr) => <TradeGlyph key={tr} trade={tr} />)}
                         </div>
                       </div>
                       <StatusPill status={tech.approvalStatus} />
                     </div>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-600">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-600">
                       <OnlineDot online={tech.isOnline} />
                       <span>{tech.yearsExperience} {t("common.years")}</span>
                       <span>{tech.stats.jobsCompleted} {t("common.jobs")}</span>
@@ -502,12 +502,12 @@ export default function AdminPanel() {
                       <TableRow key={tech.id}>
                         <TableCell>
                           <div className="flex flex-col gap-1">
-                            <span className="font-semibold text-stone-900">{tech.name}</span>
+                            <span className="font-semibold text-ink-900">{tech.name}</span>
                             <OnlineDot online={tech.isOnline} />
                             <div className="flex flex-wrap items-center gap-1.5">
                               {tech.trades.map((tr) => <TradeGlyph key={tr} trade={tr} />)}
                             </div>
-                            <span className="text-xs text-stone-500">
+                            <span className="text-xs text-ink-500">
                               {tech.yearsExperience} {t("common.years")} · {tech.stats.jobsCompleted} {t("common.jobs")}
                             </span>
                           </div>
@@ -522,12 +522,12 @@ export default function AdminPanel() {
                           <div className="flex flex-col gap-1">
                             <span className="inline-flex items-center gap-1.5">
                               <StarRating value={Math.round(tech.stats.ratingAvg ?? 0)} size={12} />
-                              <span className="text-xs font-semibold tabular-nums text-stone-700">
+                              <span className="text-xs font-semibold tabular-nums text-ink-700">
                                 {tech.stats.ratingAvg != null ? tech.stats.ratingAvg.toFixed(1) : "—"}
                               </span>
                             </span>
-                            <span className="text-xs text-stone-500">
-                              {t("admin.trustScore")}: <span className="font-semibold text-stone-700">{tech.trustScore}</span>
+                            <span className="text-xs text-ink-500">
+                              {t("admin.trustScore")}: <span className="font-semibold text-ink-700">{tech.trustScore}</span>
                             </span>
                           </div>
                         </TableCell>
@@ -537,7 +537,7 @@ export default function AdminPanel() {
                               {tech.badges.map((b) => <BadgeChip key={b} badge={b} />)}
                             </div>
                           ) : (
-                            <span className="text-xs text-stone-300">—</span>
+                            <span className="text-xs text-ink-300">—</span>
                           )}
                         </TableCell>
                         <TableCell>
@@ -586,7 +586,7 @@ export default function AdminPanel() {
         {filteredBookings.length === 0 ? (
           <EmptyState text={t("admin.queueEmpty")} />
         ) : (
-          <div className="max-h-[420px] overflow-y-auto scroll-slim rounded-xl border border-stone-200 bg-white">
+          <div className="max-h-[420px] overflow-y-auto scroll-slim rounded-xl border border-ink-200 bg-white">
             {/* Stacked cards — small screens */}
             <div className="space-y-2 p-3 md:hidden">
               {filteredBookings.map((b) => (
@@ -602,18 +602,18 @@ export default function AdminPanel() {
                     }
                   }}
                   aria-label={`${t("admin.bookings.client")}: ${b.clientName} · ${t("admin.bookings.tech")}: ${b.technicianName}`}
-                  className="cursor-pointer gap-2 p-4 transition-colors hover:border-teal-300 hover:bg-teal-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+                  className="cursor-pointer gap-2 p-4 transition-colors hover:border-brand-300 hover:bg-brand-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-xs text-stone-400">{b.id.slice(0, 8)}</span>
+                    <span className="font-mono text-xs text-ink-400">{b.id.slice(0, 8)}</span>
                     <StatusPill status={b.status} />
                   </div>
-                  <p className="text-sm font-semibold text-stone-900">
-                    {b.clientName} <span className="text-stone-400">→</span> {b.technicianName}
+                  <p className="text-sm font-semibold text-ink-900">
+                    {b.clientName} <span className="text-ink-400">→</span> {b.technicianName}
                   </p>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-600">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-600">
                     <span>{t(`trade.${b.trade}` as DictKey)}</span>
-                    <span className="font-medium text-teal-800">{priceLabel(b)}</span>
+                    <span className="font-medium text-brand-800">{priceLabel(b)}</span>
                     <span>{fmtDate(b.createdAt)}</span>
                   </div>
                 </Card>
@@ -634,20 +634,20 @@ export default function AdminPanel() {
                 </TableHeader>
                 <TableBody>
                   {filteredBookings.map((b) => (
-                    <TableRow key={b.id} className="cursor-pointer hover:bg-teal-50/40" onClick={() => setDetailBooking(b)}>
+                    <TableRow key={b.id} className="cursor-pointer hover:bg-brand-50/40" onClick={() => setDetailBooking(b)}>
                       <TableCell>
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-medium text-stone-900">{b.clientName}</span>
-                          <span className="font-mono text-xs text-stone-400">{b.id.slice(0, 8)}</span>
+                          <span className="font-medium text-ink-900">{b.clientName}</span>
+                          <span className="font-mono text-xs text-ink-400">{b.id.slice(0, 8)}</span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-sm text-stone-700">{b.technicianName}</TableCell>
+                      <TableCell className="text-sm text-ink-700">{b.technicianName}</TableCell>
                       <TableCell>
                         <TradeIcon trade={b.trade} size="sm" withLabel />
                       </TableCell>
                       <TableCell><StatusPill status={b.status} /></TableCell>
-                      <TableCell className="whitespace-nowrap text-sm font-medium text-teal-800">{priceLabel(b)}</TableCell>
-                      <TableCell className="whitespace-nowrap text-sm text-stone-600">{fmtDate(b.createdAt)}</TableCell>
+                      <TableCell className="whitespace-nowrap text-sm font-medium text-brand-800">{priceLabel(b)}</TableCell>
+                      <TableCell className="whitespace-nowrap text-sm text-ink-600">{fmtDate(b.createdAt)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -669,9 +669,9 @@ export default function AdminPanel() {
           <Card key={r.id} className="gap-2 p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex min-w-0 flex-wrap items-center gap-2">
-                <span className="truncate font-semibold text-stone-900">{r.technicianName ?? r.technicianId}</span>
+                <span className="truncate font-semibold text-ink-900">{r.technicianName ?? r.technicianId}</span>
                 {r.hidden && (
-                  <Badge variant="outline" className="border-stone-300 bg-stone-50 text-stone-500">
+                  <Badge variant="outline" className="border-ink-300 bg-ink-50 text-ink-500">
                     {t("admin.reviews.hiddenTag")}
                   </Badge>
                 )}
@@ -688,14 +688,14 @@ export default function AdminPanel() {
             {r.tags.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {r.tags.map((tg, j) => (
-                  <Badge key={`${tg}-${j}`} variant="secondary" className="border-teal-200 bg-teal-50 text-teal-800">
+                  <Badge key={`${tg}-${j}`} variant="secondary" className="border-brand-200 bg-brand-50 text-brand-800">
                     {TAG_KEYS[tg] ? t(TAG_KEYS[tg]) : tg}
                   </Badge>
                 ))}
               </div>
             )}
-            {r.comment && <p className="text-sm text-stone-600">{r.comment}</p>}
-            <p className="text-xs text-stone-400">{fmtDate(r.createdAt)}</p>
+            {r.comment && <p className="text-sm text-ink-600">{r.comment}</p>}
+            <p className="text-xs text-ink-400">{fmtDate(r.createdAt)}</p>
           </Card>
         ))}
       </div>
@@ -712,8 +712,8 @@ export default function AdminPanel() {
           <Card key={c.id} className="gap-2 p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-stone-400">{c.bookingId.slice(0, 8)}</span>
-                <Badge variant="outline" className="border-stone-300 text-stone-600">{c.kind}</Badge>
+                <span className="font-mono text-xs text-ink-400">{c.bookingId.slice(0, 8)}</span>
+                <Badge variant="outline" className="border-ink-300 text-ink-600">{c.kind}</Badge>
               </div>
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold">
                 <span
@@ -723,8 +723,8 @@ export default function AdminPanel() {
                 {c.status === "resolved" ? t("admin.complaints.resolved") : c.status}
               </span>
             </div>
-            <p className="text-sm text-stone-700">{c.text}</p>
-            <p className="text-xs text-stone-400">{c.raisedBy} · {fmtDate(c.createdAt)}</p>
+            <p className="text-sm text-ink-700">{c.text}</p>
+            <p className="text-xs text-ink-400">{c.raisedBy} · {fmtDate(c.createdAt)}</p>
             {c.status === "resolved" && (c.resolvedBy || c.note) && (
               <p className="rounded-lg bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
                 {c.resolvedBy ? <span className="font-semibold">{c.resolvedBy}</span> : null}
@@ -755,12 +755,12 @@ export default function AdminPanel() {
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-5 p-4 md:p-6">
       <header className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-teal-200 bg-teal-50">
-            <ShieldCheck className="h-5 w-5 text-teal-700" aria-hidden />
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand-200 bg-brand-50">
+            <ShieldCheck className="h-5 w-5 text-brand-700" aria-hidden />
           </span>
           <div className="min-w-0">
-            <h1 className="truncate text-lg font-bold text-stone-900">{t("admin.title")}</h1>
-            {user && <p className="truncate text-xs text-stone-500">{user.name}</p>}
+            <h1 className="truncate text-lg font-bold text-ink-900">{t("admin.title")}</h1>
+            {user && <p className="truncate text-xs text-ink-500">{user.name}</p>}
           </div>
         </div>
         <LangToggle />
@@ -769,7 +769,7 @@ export default function AdminPanel() {
       <div
         role="tablist"
         aria-label={t("admin.title")}
-        className="flex gap-1 overflow-x-auto scroll-slim rounded-xl border border-stone-200 bg-white p-1"
+        className="flex gap-1 overflow-x-auto scroll-slim rounded-xl border border-ink-200 bg-white p-1"
       >
         {TABS.map(({ id, icon: Icon, label }) => (
           <button
@@ -781,8 +781,8 @@ export default function AdminPanel() {
             aria-controls={`admin-panel-${id}`}
             onClick={() => setTab(id)}
             className={cn(
-              "inline-flex min-w-fit items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600",
-              tab === id ? "bg-teal-600 text-white shadow-sm" : "text-stone-600 hover:bg-teal-50 hover:text-teal-800",
+              "inline-flex min-w-fit items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600",
+              tab === id ? "bg-brand-600 text-white shadow-sm" : "text-ink-600 hover:bg-brand-50 hover:text-brand-800",
             )}
           >
             <Icon className="h-4 w-4 shrink-0" aria-hidden />
@@ -802,7 +802,7 @@ export default function AdminPanel() {
       ) : error || !data ? (
         <div className="flex flex-col items-center gap-3 py-12 text-center">
           <AlertTriangle className="h-8 w-8 text-amber-500" aria-hidden />
-          <p className="text-sm text-stone-600">{t("common.errorGeneric")}</p>
+          <p className="text-sm text-ink-600">{t("common.errorGeneric")}</p>
           <Button variant="outline" onClick={() => void load()}>
             <RefreshCw aria-hidden />
             {t("common.retry")}
@@ -830,7 +830,7 @@ export default function AdminPanel() {
       )}
 
       {/* Panel-level actions — always rendered, independent of the active tab */}
-      <div className="mt-auto flex flex-col gap-2 border-t border-stone-200 pt-4 sm:flex-row sm:items-center sm:justify-end">
+      <div className="mt-auto flex flex-col gap-2 border-t border-ink-200 pt-4 sm:flex-row sm:items-center sm:justify-end">
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button
@@ -905,7 +905,7 @@ export default function AdminPanel() {
             <>
               <DialogHeader>
                 <DialogTitle className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-sm text-stone-500">{detailBooking.id.slice(0, 8)}</span>
+                  <span className="font-mono text-sm text-ink-500">{detailBooking.id.slice(0, 8)}</span>
                   <StatusPill status={detailBooking.status} />
                 </DialogTitle>
                 <DialogDescription>
@@ -913,40 +913,40 @@ export default function AdminPanel() {
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-3">
-                <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-                  <p className="text-sm text-stone-800">{detailBooking.summary_en}</p>
+                <div className="rounded-lg border border-ink-200 bg-ink-50 p-3">
+                  <p className="text-sm text-ink-800">{detailBooking.summary_en}</p>
                   {detailBooking.summary_ur && (
-                    <p className="font-urdu mt-2 text-sm leading-loose text-stone-700" dir="rtl" lang="ur">
+                    <p className="font-urdu mt-2 text-sm leading-loose text-ink-700" dir="rtl" lang="ur">
                       {detailBooking.summary_ur}
                     </p>
                   )}
                 </div>
                 <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-                  <span className="inline-flex items-center gap-1.5 text-stone-600">
-                    <Clock className="h-4 w-4 text-teal-700" aria-hidden />
+                  <span className="inline-flex items-center gap-1.5 text-ink-600">
+                    <Clock className="h-4 w-4 text-brand-700" aria-hidden />
                     {t(`urgency.${detailBooking.urgency}` as DictKey)}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 text-stone-600">
-                    <MapPin className="h-4 w-4 text-teal-700" aria-hidden />
+                  <span className="inline-flex items-center gap-1.5 text-ink-600">
+                    <MapPin className="h-4 w-4 text-brand-700" aria-hidden />
                     {areaLabel(detailBooking)}
                   </span>
-                  <span className="inline-flex items-center font-semibold text-teal-800">
+                  <span className="inline-flex items-center font-semibold text-brand-800">
                     {priceLabel(detailBooking)}
                   </span>
                 </div>
                 {detailBooking.statusHistory.length > 0 && (
                   <div>
-                    <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
+                    <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink-500">
                       {t("admin.bookings.status")}
                     </h3>
                     <ol className="space-y-2">
                       {detailBooking.statusHistory.map((h, i) => (
                         <li
                           key={`${h.at}-${i}`}
-                          className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-stone-100 bg-white px-3 py-2"
+                          className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-ink-100 bg-white px-3 py-2"
                         >
                           <StatusPill status={h.status} />
-                          <span className="text-xs text-stone-500">{fmtDateTime(h.at)}</span>
+                          <span className="text-xs text-ink-500">{fmtDateTime(h.at)}</span>
                         </li>
                       ))}
                     </ol>

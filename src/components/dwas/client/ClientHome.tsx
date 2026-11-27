@@ -104,157 +104,169 @@ export function ClientHome() {
   const canSend = text.trim().length > 0 && !sending;
 
   return (
-    <div className="mx-auto w-full max-w-lg px-4 pt-6 pb-10">
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-        <h1 className="text-2xl font-extrabold tracking-tight text-stone-900">{t("client.homeTitle")}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t("client.homeSub")}</p>
-      </motion.div>
+    <div className="mx-auto w-full max-w-2xl px-4 pt-8 pb-16 sm:pt-10">
+      <motion.header initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-700">{t("client.homeSub")}</p>
+        <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{t("client.homeTitle")}</h1>
+      </motion.header>
 
-      {/* Mic */}
-      <div className="mt-8 flex flex-col items-center">
-        <motion.button
-          type="button"
-          onClick={() => {
-      if (voiceDisabled) return;
-      if (dictation.listening) dictation.stop();
-      else dictation.start();
-    }}
-          whileTap={{ scale: 0.94 }}
-          disabled={!dictation.supported || voiceDisabled}
-          aria-label={dictation.listening ? t("client.micListening") : t("client.micStart")}
-          className={cn(
-            "relative flex h-32 w-32 items-center justify-center rounded-full text-white shadow-xl transition-colors",
-            dictation.listening ? "bg-rose-500 shadow-rose-500/30" : "bg-teal-600 shadow-teal-600/30",
-            (!dictation.supported || voiceDisabled) && "opacity-40",
-          )}
-        >
-          {dictation.listening && !reduceMotionSafe() && (
-            <>
-              <motion.span
-                className="absolute inset-0 rounded-full bg-rose-400/50"
-                animate={{ scale: [1, 1.35, 1], opacity: [0.55, 0, 0.55] }}
-                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-                aria-hidden
-              />
-              <motion.span
-                className="absolute inset-0 rounded-full bg-rose-400/40"
-                animate={{ scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] }}
-                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut", delay: 0.35 }}
-                aria-hidden
-              />
-            </>
-          )}
-          <Mic className="relative h-12 w-12" aria-hidden />
-        </motion.button>
-
-        <div className="mt-3 flex items-center gap-2 text-sm font-medium text-stone-600">
-          {dictation.listening ? (
-            <span className="inline-flex items-center gap-2 text-rose-600">
-              <span className="flex items-end gap-0.5" aria-hidden>
-                {[0.35, 0.7, 1, 0.6, 0.4].map((h, i) => (
-                  <motion.span
-                    key={i}
-                    className="w-1 rounded-full bg-rose-500"
-                    animate={{ height: [`${h * 10}px`, `${h * 20}px`, `${h * 10}px`] }}
-                    transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.1 }}
-                    style={{ height: `${h * 14}px` }}
-                  />
-                ))}
-              </span>
-              {t("client.micListening")}
-            </span>
-          ) : (
-            <span>{t("client.micStart")}</span>
-          )}
-          <button
+      {/* Voice panel */}
+      <motion.section
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+        className="dw-card mt-6 rounded-3xl p-6 sm:p-8"
+      >
+        <div className="flex flex-col items-center">
+          <motion.button
             type="button"
-            onClick={() => speak(t("client.homeTitle"), lang === "ur" ? "ur-PK" : "en-PK")}
-            className="rounded-full p-1.5 text-teal-700 hover:bg-teal-50"
-            aria-label="Read aloud"
+            onClick={() => {
+              if (voiceDisabled) return;
+              if (dictation.listening) dictation.stop();
+              else dictation.start();
+            }}
+            whileTap={{ scale: 0.94 }}
+            disabled={!dictation.supported || voiceDisabled}
+            aria-label={dictation.listening ? t("client.micListening") : t("client.micStart")}
+            className={cn(
+              "relative flex h-28 w-28 items-center justify-center rounded-full text-white shadow-xl transition-colors duration-300 sm:h-32 sm:w-32",
+              dictation.listening
+                ? "bg-rose-500 shadow-rose-500/30"
+                : "bg-brand-700 shadow-brand-900/30 hover:bg-brand-800",
+              (!dictation.supported || voiceDisabled) && "opacity-40",
+            )}
           >
-            <Volume2 className="h-4 w-4" aria-hidden />
-          </button>
-        </div>
+            {dictation.listening && !reduceMotionSafe() && (
+              <>
+                <motion.span
+                  className="absolute inset-0 rounded-full bg-rose-400/50"
+                  animate={{ scale: [1, 1.35, 1], opacity: [0.55, 0, 0.55] }}
+                  transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+                  aria-hidden
+                />
+                <motion.span
+                  className="absolute inset-0 rounded-full bg-rose-400/40"
+                  animate={{ scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] }}
+                  transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut", delay: 0.35 }}
+                  aria-hidden
+                />
+              </>
+            )}
+            <Mic className="relative h-11 w-11 sm:h-12 sm:w-12" aria-hidden />
+          </motion.button>
 
-        {dictation.error === "denied" && (
-          <p className="mt-2 flex items-center gap-1.5 rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-800" role="alert">
-            <AlertTriangle className="h-3.5 w-3.5" aria-hidden />
-            {t("client.micDenied")}
-          </p>
-        )}
-        {(!dictation.supported || voiceDisabled) && (
-          <p className="mt-2 rounded-lg bg-stone-50 px-3 py-1.5 text-xs text-stone-500">{t("client.micUnsupported")}</p>
-        )}
-
-        {/* Voice language switch */}
-        <div className="mt-3 inline-flex items-center rounded-full border border-stone-200 bg-white p-0.5 text-xs" role="group" aria-label={t("client.voiceLang")}>
-          {(["ur-PK", "en-PK"] as const).map((v) => (
+          <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-ink-700">
+            {dictation.listening ? (
+              <span className="inline-flex items-center gap-2 text-rose-600">
+                <span className="flex items-end gap-0.5" aria-hidden>
+                  {[0.35, 0.7, 1, 0.6, 0.4].map((h, i) => (
+                    <motion.span
+                      key={i}
+                      className="w-1 rounded-full bg-rose-500"
+                      animate={{ height: [`${h * 10}px`, `${h * 20}px`, `${h * 10}px`] }}
+                      transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.1 }}
+                      style={{ height: `${h * 14}px` }}
+                    />
+                  ))}
+                </span>
+                {t("client.micListening")}
+              </span>
+            ) : (
+              <span>{t("client.micStart")}</span>
+            )}
             <button
-              key={v}
               type="button"
-              onClick={() => setVoiceLang(v)}
-              aria-pressed={voiceLang === v}
-              className={cn("rounded-full px-3 py-1 font-semibold transition-colors", voiceLang === v ? "bg-teal-600 text-white" : "text-stone-500")}
+              onClick={() => speak(t("client.homeTitle"), lang === "ur" ? "ur-PK" : "en-PK")}
+              className="dw-press rounded-full p-1.5 text-brand-700 hover:bg-brand-50"
+              aria-label="Read aloud"
             >
-              {v === "ur-PK" ? "اردو" : "English"}
+              <Volume2 className="h-4 w-4" aria-hidden />
             </button>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      {/* Live transcript / typed fallback */}
-      <div className="mt-6">
-        <Textarea
-          value={text}
-          onChange={(e) => setDraftText(e.target.value)}
-          placeholder={dictation.listening && !text ? t("client.listeningLive") : t("client.typePlaceholder")}
-          rows={3}
-          dir={/[\u0600-\u06FF]/.test(text) ? "rtl" : "auto"}
-          className={cn("resize-none border-stone-200 text-base", /[\u0600-\u06FF]/.test(text) && "font-urdu leading-loose")}
-          aria-label={t("client.typePlaceholder")}
-        />
-        <div className="mt-3 flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1.5 text-xs text-stone-400">
-            <Keyboard className="h-3.5 w-3.5" aria-hidden />
-            {dictation.interim && text ? "…" : ""}
-            {dictation.finalText ? "" : ""}
-          </span>
-          <Button
-            onClick={() => void sendToIntake()}
-            disabled={!canSend}
-            className="h-12 min-w-36 gap-2 rounded-xl bg-teal-600 font-bold hover:bg-teal-700"
-          >
-            {sending ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Send className="h-4 w-4" aria-hidden />}
-            {t("client.send")}
-          </Button>
+          {dictation.error === "denied" && (
+            <p className="mt-3 flex items-center gap-1.5 rounded-lg bg-saffron-50 px-3 py-1.5 text-xs text-saffron-800" role="alert">
+              <AlertTriangle className="h-3.5 w-3.5" aria-hidden />
+              {t("client.micDenied")}
+            </p>
+          )}
+          {(!dictation.supported || voiceDisabled) && (
+            <p className="mt-3 rounded-lg bg-ink-100 px-3 py-1.5 text-xs text-ink-600">{t("client.micUnsupported")}</p>
+          )}
+
+          {/* Voice language switch */}
+          <div className="mt-4 inline-flex items-center gap-0.5 rounded-xl border border-ink-200 bg-ink-50 p-0.5 text-xs" role="group" aria-label={t("client.voiceLang")}>
+            {(["ur-PK", "en-PK"] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => setVoiceLang(v)}
+                aria-pressed={voiceLang === v}
+                className={cn(
+                  "rounded-lg px-3.5 py-1.5 font-semibold transition-colors duration-150",
+                  voiceLang === v ? "bg-brand-700 text-white shadow-sm" : "text-ink-600 hover:text-ink-900",
+                )}
+              >
+                {v === "ur-PK" ? "اردو" : "English"}
+              </button>
+            ))}
+          </div>
         </div>
-        {intakeError && (
-          <p className="mt-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700" role="alert">{intakeError}</p>
-        )}
-      </div>
+
+        {/* Live transcript / typed fallback */}
+        <div className="mt-7 border-t border-ink-100 pt-6">
+          <Textarea
+            value={text}
+            onChange={(e) => setDraftText(e.target.value)}
+            placeholder={dictation.listening && !text ? t("client.listeningLive") : t("client.typePlaceholder")}
+            rows={3}
+            dir={/[\u0600-\u06FF]/.test(text) ? "rtl" : "auto"}
+            className={cn("resize-none rounded-2xl border-ink-200 bg-ink-50/60 text-base focus-visible:bg-white", /[\u0600-\u06FF]/.test(text) && "font-urdu leading-loose")}
+            aria-label={t("client.typePlaceholder")}
+          />
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <span className="inline-flex items-center gap-1.5 text-xs text-ink-400">
+              <Keyboard className="h-3.5 w-3.5" aria-hidden />
+              {dictation.interim && text ? "…" : ""}
+            </span>
+            <Button
+              onClick={() => void sendToIntake()}
+              disabled={!canSend}
+              className="dw-press h-12 min-w-40 gap-2 rounded-xl bg-brand-700 font-bold text-white hover:bg-brand-800"
+            >
+              {sending ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Send className="h-4 w-4" aria-hidden />}
+              {t("client.send")}
+            </Button>
+          </div>
+          {intakeError && (
+            <p className="mt-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700" role="alert">{intakeError}</p>
+          )}
+        </div>
+      </motion.section>
 
       {/* Common problems */}
-      <section className="mt-8" aria-label={t("client.cardsTitle")}>
-        <h2 className="mb-3 text-sm font-bold text-stone-700">{t("client.cardsTitle")}</h2>
-        <div className="grid grid-cols-2 gap-2.5">
+      <section className="mt-10" aria-label={t("client.cardsTitle")}>
+        <h2 className="mb-4 flex items-center justify-between text-sm font-bold text-ink-800">
+          {t("client.cardsTitle")}
+        </h2>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {PROBLEM_CARDS.map((card, i) => (
             <motion.button
               key={card.key}
               type="button"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 * i }}
-              whileTap={{ scale: 0.97 }}
+              transition={{ delay: 0.04 * i, duration: 0.35 }}
               onClick={() => pickCard(card)}
               className={cn(
-                "flex min-h-16 flex-col justify-center gap-1.5 rounded-2xl border bg-white p-3 text-start shadow-sm transition-colors hover:border-teal-400",
-                card.emergency ? "border-rose-200 hover:border-rose-400" : "border-stone-200",
+                "dw-lift flex min-h-24 flex-col justify-between gap-3 rounded-2xl border bg-white p-4 text-start",
+                card.emergency ? "border-rose-200 hover:border-rose-400" : "border-ink-200",
               )}
             >
               <TradeIcon trade={card.trade} size="sm" withLabel={false} />
-              <span className="flex items-center gap-1 text-sm font-semibold text-stone-800">
+              <span className="flex items-center gap-1.5 text-sm leading-snug font-semibold text-ink-900">
                 {t(`problem.${card.key}` as DictKey)}
-                {card.emergency && <AlertTriangle className="h-3.5 w-3.5 text-rose-500" aria-label="emergency" />}
+                {card.emergency && <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-rose-500" aria-label="emergency" />}
               </span>
             </motion.button>
           ))}
@@ -262,9 +274,9 @@ export function ClientHome() {
       </section>
 
       {/* Trade picker */}
-      <section className="mt-6" aria-label={t("client.tradesTitle")}>
-        <h2 className="mb-3 text-sm font-bold text-stone-700">{t("client.tradesTitle")}</h2>
-        <div className="grid grid-cols-5 gap-2">
+      <section className="mt-8" aria-label={t("client.tradesTitle")}>
+        <h2 className="mb-4 text-sm font-bold text-ink-800">{t("client.tradesTitle")}</h2>
+        <div className="grid grid-cols-5 gap-2 sm:gap-3">
           {TRADES.map((trade) => (
             <motion.button
               key={trade}
@@ -288,11 +300,11 @@ export function ClientHome() {
                 });
                 navigate("client-request");
               }}
-              className="flex flex-col items-center gap-1.5 rounded-2xl border border-stone-200 bg-white p-2.5 hover:border-teal-400"
+              className="dw-lift flex flex-col items-center gap-2 rounded-2xl border border-ink-200 bg-white p-3 sm:p-4"
               aria-label={t(`trade.${trade}` as DictKey)}
             >
               <TradeIcon trade={trade} size="sm" withLabel={false} />
-              <span className="text-center text-[10px] leading-tight font-semibold text-stone-600">
+              <span className="text-center text-[11px] leading-tight font-semibold text-ink-700 sm:text-xs">
                 {t(`trade.${trade}` as DictKey)}
               </span>
             </motion.button>

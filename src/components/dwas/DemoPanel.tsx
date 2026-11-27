@@ -41,20 +41,20 @@ export function DemoPanel() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 12 }}
-          className="fixed inset-x-3 bottom-20 z-40 rounded-2xl border border-teal-300 bg-white/95 p-3 shadow-2xl backdrop-blur sm:right-4 sm:left-auto sm:w-72"
+          className="fixed inset-x-3 bottom-20 z-40 rounded-2xl border border-brand-300 bg-white/95 p-3 shadow-2xl backdrop-blur sm:right-4 sm:left-auto sm:w-72"
           role="complementary"
           aria-label={t("demo.panel")}
         >
           <div className="flex items-center justify-between">
-            <p className="flex items-center gap-1.5 text-xs font-extrabold tracking-wide text-teal-900 uppercase">
+            <p className="flex items-center gap-1.5 text-xs font-extrabold tracking-wide text-brand-900 uppercase">
               <FlaskConical className="h-3.5 w-3.5" aria-hidden />
               {t("demo.panel")}
             </p>
-            <button type="button" onClick={() => setOpen(false)} className="rounded-full p-1 text-stone-400 hover:bg-stone-100" aria-label={t("common.close")}>
+            <button type="button" onClick={() => setOpen(false)} className="rounded-full p-1 text-ink-400 hover:bg-ink-100" aria-label={t("common.close")}>
               <X className="h-3.5 w-3.5" aria-hidden />
             </button>
           </div>
-          <p className="mt-1 text-[10px] leading-snug text-stone-400">{t("demo.hint")}</p>
+          <p className="mt-1 text-[10px] leading-snug text-ink-400">{t("demo.hint")}</p>
 
           <div className="mt-2.5 space-y-2">
             {[
@@ -62,13 +62,13 @@ export function DemoPanel() {
               { key: "demo.forceLLMOff" as const, prop: "forceLLMOff" as const, value: demo.forceLLMOff },
               { key: "demo.forceVoiceOff" as const, prop: "forceVoiceOff" as const, value: demo.forceVoiceOff },
             ].map((row) => (
-              <label key={row.key} className="flex items-center justify-between gap-2 text-xs font-semibold text-stone-700">
+              <label key={row.key} className="flex items-center justify-between gap-2 text-xs font-semibold text-ink-700">
                 {t(row.key)}
                 <Switch
                   checked={row.value}
                   onCheckedChange={(v) => setDemo({ [row.prop]: v })}
                   aria-label={t(row.key)}
-                  className="h-6 w-11 data-[state=checked]:bg-teal-600"
+                  className="h-6 w-11 data-[state=checked]:bg-brand-600"
                 />
               </label>
             ))}
@@ -79,7 +79,7 @@ export function DemoPanel() {
             <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("tech-home")}>{t("admin.demo.role.technician")}</Button>
             <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => navigate("admin")}>{t("admin.demo.role.admin")}</Button>
           </div>
-          <Button size="sm" className="mt-1.5 h-8 w-full bg-teal-600 text-[11px] font-bold hover:bg-teal-700" onClick={runS1Script}>
+          <Button size="sm" className="mt-1.5 h-8 w-full bg-brand-600 text-[11px] font-bold hover:bg-brand-700" onClick={runS1Script}>
             {t("demo.script")}
           </Button>
         </motion.div>

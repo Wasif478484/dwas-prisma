@@ -26,11 +26,11 @@ export const TRADE_ICONS: Record<Trade, typeof Wrench> = {
 };
 
 export const TRADE_COLORS: Record<Trade, string> = {
-  plumber: "bg-teal-50 text-teal-700 border-teal-200",
-  electrician: "bg-amber-50 text-amber-700 border-amber-200",
+  plumber: "bg-brand-50 text-brand-700 border-brand-200",
+  electrician: "bg-saffron-50 text-saffron-800 border-saffron-200",
   ac_fridge: "bg-sky-50 text-sky-700 border-sky-200",
-  carpenter: "bg-orange-50 text-orange-700 border-orange-200",
-  mazdoor: "bg-stone-100 text-stone-700 border-stone-300",
+  carpenter: "bg-orange-50 text-orange-800 border-orange-200",
+  mazdoor: "bg-ink-100 text-ink-700 border-ink-300",
 };
 
 export function TradeIcon({ trade, size = "md", withLabel = true }: { trade: Trade; size?: "sm" | "md" | "lg"; withLabel?: boolean }) {
@@ -40,7 +40,7 @@ export function TradeIcon({ trade, size = "md", withLabel = true }: { trade: Tra
   const icon = size === "lg" ? "h-7 w-7" : size === "sm" ? "h-4 w-4" : "h-5 w-5";
   return (
     <span className="inline-flex items-center gap-2">
-      <span className={cn("inline-flex items-center justify-center rounded-xl border", box, TRADE_COLORS[trade])}>
+      <span className={cn("inline-flex items-center justify-center rounded-2xl border shadow-inner shadow-white/60", box, TRADE_COLORS[trade])}>
         <Icon className={icon} aria-hidden />
       </span>
       {withLabel && <span className="text-sm font-medium">{t(`trade.${trade}` as DictKey)}</span>}
@@ -66,7 +66,7 @@ export function BadgeChip({ badge }: { badge: string }) {
   const label = t(key);
   if (label === key && !label.includes(" ")) return null; // unknown badge -> skip
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-teal-200 bg-teal-50 px-2 py-0.5 text-xs font-medium text-teal-800">
+    <span className="inline-flex items-center gap-1 rounded-full border border-brand-200 bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-800">
       <Icon className="h-3 w-3" aria-hidden />
       {label}
     </span>
@@ -91,7 +91,7 @@ export function StarRating({ value, size = 16, onChange, ariaLabel }: { value: n
         >
           <Star
             style={{ width: size, height: size }}
-            className={n <= value ? "fill-amber-400 text-amber-500" : "fill-none text-stone-300"}
+            className={n <= value ? "fill-amber-400 text-amber-500" : "fill-none text-ink-300"}
             aria-hidden
           />
         </motion.button>
@@ -104,15 +104,15 @@ export function StarRating({ value, size = 16, onChange, ariaLabel }: { value: n
 
 export const STATUS_STYLES: Record<string, string> = {
   requested: "bg-amber-100 text-amber-800 border-amber-200",
-  accepted: "bg-teal-100 text-teal-800 border-teal-200",
-  on_the_way: "bg-teal-100 text-teal-800 border-teal-200",
+  accepted: "bg-brand-100 text-brand-800 border-brand-200",
+  on_the_way: "bg-brand-100 text-brand-800 border-brand-200",
   in_progress: "bg-sky-100 text-sky-800 border-sky-200",
   completed: "bg-emerald-100 text-emerald-800 border-emerald-200",
   reviewed: "bg-emerald-100 text-emerald-800 border-emerald-200",
   declined: "bg-rose-100 text-rose-800 border-rose-200",
-  expired: "bg-stone-100 text-stone-600 border-stone-200",
-  cancelled_client: "bg-stone-100 text-stone-600 border-stone-200",
-  cancelled_tech: "bg-stone-100 text-stone-600 border-stone-200",
+  expired: "bg-ink-100 text-ink-600 border-ink-200",
+  cancelled_client: "bg-ink-100 text-ink-600 border-ink-200",
+  cancelled_tech: "bg-ink-100 text-ink-600 border-ink-200",
   no_show: "bg-rose-100 text-rose-800 border-rose-200",
   disputed: "bg-rose-100 text-rose-800 border-rose-200",
   pending: "bg-amber-100 text-amber-800 border-amber-200",
@@ -124,8 +124,8 @@ export const STATUS_STYLES: Record<string, string> = {
 export function StatusPill({ status }: { status: string }) {
   const t = useDw((s) => s.t);
   return (
-    <span className={cn("inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold", STATUS_STYLES[status] ?? "bg-stone-100 text-stone-700 border-stone-200")}>
-      <span className={cn("h-1.5 w-1.5 rounded-full", STATUS_STYLES[status]?.includes("amber") ? "bg-amber-500" : STATUS_STYLES[status]?.includes("emerald") ? "bg-emerald-500" : STATUS_STYLES[status]?.includes("rose") ? "bg-rose-500" : "bg-teal-500")} aria-hidden />
+    <span className={cn("inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold", STATUS_STYLES[status] ?? "bg-ink-100 text-ink-700 border-ink-200")}>
+      <span className={cn("h-1.5 w-1.5 rounded-full", STATUS_STYLES[status]?.includes("amber") ? "bg-amber-500" : STATUS_STYLES[status]?.includes("emerald") ? "bg-emerald-500" : STATUS_STYLES[status]?.includes("rose") ? "bg-rose-500" : "bg-brand-500")} aria-hidden />
       {t((`status.${status}`) as DictKey)}
     </span>
   );
@@ -137,8 +137,8 @@ export function LangToggle() {
   const lang = useDw((s) => s.lang);
   const setLang = useDw((s) => s.setLang);
   return (
-    <div className="inline-flex items-center rounded-full border border-teal-200 bg-white p-0.5" role="group" aria-label="Language">
-      <Languages className="mx-1.5 h-4 w-4 text-teal-700" aria-hidden />
+    <div className="inline-flex items-center gap-0.5 rounded-xl border border-ink-200 bg-white p-0.5" role="group" aria-label="Language">
+      <Languages className="mx-1.5 hidden h-3.5 w-3.5 text-ink-500 sm:block" aria-hidden />
       {(["en", "ur"] as const).map((l) => (
         <button
           key={l}
@@ -146,8 +146,8 @@ export function LangToggle() {
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
           className={cn(
-            "rounded-full px-3 py-1 text-xs font-semibold transition-colors",
-            lang === l ? "bg-teal-600 text-white" : "text-stone-600 hover:bg-teal-50",
+            "rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-colors duration-150 sm:px-3",
+            lang === l ? "bg-brand-700 text-white shadow-sm" : "text-ink-600 hover:bg-ink-100 hover:text-ink-900",
             l === "ur" && "font-urdu text-base leading-none",
           )}
         >
@@ -184,7 +184,7 @@ export function StatusTracker({ status }: { status: string }) {
           <li key={step.status} className="relative flex gap-3 pb-4 last:pb-0">
             {index < TRACKER_STEPS.length - 1 && (
               <span
-                className={cn("absolute top-6 left-[13px] h-[calc(100%-1.5rem)] w-0.5", done ? "bg-teal-500" : "bg-stone-200")}
+                className={cn("absolute top-6 left-[13px] h-[calc(100%-1.5rem)] w-0.5", done ? "bg-brand-500" : "bg-ink-200")}
                 aria-hidden
               />
             )}
@@ -194,14 +194,14 @@ export function StatusTracker({ status }: { status: string }) {
               transition={active ? { repeat: Infinity, duration: 1.6, ease: "easeInOut" } : { duration: 0.2 }}
               className={cn(
                 "relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold",
-                done && "border-teal-500 bg-teal-500 text-white",
-                active && "border-teal-500 bg-teal-50 text-teal-700",
-                !done && !active && "border-stone-200 bg-white text-stone-400",
+                done && "border-brand-500 bg-brand-500 text-white",
+                active && "border-brand-500 bg-brand-50 text-brand-700",
+                !done && !active && "border-ink-200 bg-white text-ink-400",
               )}
             >
               {done ? "✓" : index + 1}
             </motion.span>
-            <span className={cn("pt-1 text-sm font-medium", active ? "text-teal-800" : done ? "text-stone-700" : "text-stone-400")}>
+            <span className={cn("pt-1 text-sm font-medium", active ? "text-brand-800" : done ? "text-ink-700" : "text-ink-400")}>
               {t(step.key)}
             </span>
           </li>
@@ -222,17 +222,17 @@ export function CountdownRing({ seconds, total, ariaLabel }: { seconds: number; 
   return (
     <span className="relative inline-flex h-16 w-16 items-center justify-center" role="timer" aria-label={ariaLabel ?? `${mins}m ${secs}s remaining`}>
       <svg viewBox="0 0 64 64" className="h-16 w-16 -rotate-90">
-        <circle cx="32" cy="32" r={R} fill="none" stroke="oklch(0.92 0.005 90)" strokeWidth="6" />
+        <circle cx="32" cy="32" r={R} fill="none" stroke="#E4DED1" strokeWidth="6" />
         <motion.circle
           cx="32" cy="32" r={R} fill="none"
-          stroke={pct > 0.3 ? "oklch(0.53 0.115 195)" : "oklch(0.6 0.2 25)"}
+          stroke={pct > 0.3 ? "#1D7059" : "#D92D20"}
           strokeWidth="6" strokeLinecap="round"
           strokeDasharray={C}
           animate={{ strokeDashoffset: C * (1 - pct) }}
           transition={{ duration: 0.5, ease: "linear" }}
         />
       </svg>
-      <span className="absolute text-xs font-bold tabular-nums text-stone-700">
+      <span className="absolute font-display text-xs font-bold tabular-nums text-ink-800">
         {mins}:{String(secs).padStart(2, "0")}
       </span>
     </span>
@@ -244,11 +244,11 @@ export function CountdownRing({ seconds, total, ariaLabel }: { seconds: number; 
 export function InfoRow({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3 py-1.5">
-      <span className="flex items-center gap-2 text-sm text-stone-500">
+      <span className="flex items-center gap-2 text-sm text-ink-500">
         {icon}
         {label}
       </span>
-      <span className="text-sm font-semibold text-stone-800">{children}</span>
+      <span className="text-sm font-semibold text-ink-800">{children}</span>
     </div>
   );
 }
@@ -256,9 +256,9 @@ export function InfoRow({ icon, label, children }: { icon: ReactNode; label: str
 export function PriceBand({ min, max, className }: { min: number; max: number; className?: string }) {
   const t = useDw((s) => s.t);
   return (
-    <span className={cn("inline-flex items-baseline gap-1 font-semibold text-teal-800", className)}>
+    <span className={cn("inline-flex items-baseline gap-1 font-semibold text-brand-800", className)}>
       {min.toLocaleString()}–{max.toLocaleString()}
-      <span className="text-xs font-medium text-stone-500">{t("common.pkr")}</span>
+      <span className="text-xs font-medium text-ink-500">{t("common.pkr")}</span>
     </span>
   );
 }
@@ -267,8 +267,8 @@ export function OnlineDot({ online }: { online: boolean }) {
   const t = useDw((s) => s.t);
   return (
     <span className="inline-flex items-center gap-1.5 text-xs font-medium">
-      <span className={cn("h-2 w-2 rounded-full", online ? "animate-pulse bg-emerald-500" : "bg-stone-300")} aria-hidden />
-      <span className={online ? "text-emerald-700" : "text-stone-500"}>
+      <span className={cn("h-2 w-2 rounded-full", online ? "animate-pulse bg-emerald-500" : "bg-ink-300")} aria-hidden />
+      <span className={online ? "text-emerald-700" : "text-ink-500"}>
         {online ? t("common.online") : t("common.offline")}
       </span>
     </span>

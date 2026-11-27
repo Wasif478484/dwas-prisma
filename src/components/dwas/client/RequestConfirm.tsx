@@ -181,19 +181,19 @@ export function RequestConfirm() {
     <>
       <AnimatePresence>{isEmergency && <EmergencyNotice kind={intake.emergency.kind} onContinue={() => setEmergencyAck(true)} />}</AnimatePresence>
 
-      <div className="mx-auto w-full max-w-lg px-4 pt-4 pb-10">
-        <button type="button" onClick={() => navigate("client-home")} className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 hover:text-teal-700">
+      <div className="mx-auto w-full max-w-2xl px-4 pt-4 pb-16 sm:px-6 sm:pt-6">
+        <button type="button" onClick={() => navigate("client-home")} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 hover:text-brand-700">
           <ChevronLeft className="flip-rtl h-4 w-4" aria-hidden />
           {t("common.back")}
         </button>
 
-        <h1 className="mt-3 text-xl font-extrabold tracking-tight text-stone-900">{t("request.title")}</h1>
+        <h1 className="mt-3 font-display text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t("request.title")}</h1>
 
         {/* Understanding card */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 rounded-2xl border border-teal-100 bg-white p-4 shadow-sm">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 rounded-2xl border border-brand-100 bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between gap-2">
-            <p className="text-xs font-semibold tracking-wide text-stone-400 uppercase">{t("request.understood")}</p>
-            <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-semibold text-stone-500">
+            <p className="text-xs font-semibold tracking-wide text-ink-400 uppercase">{t("request.understood")}</p>
+            <span className="inline-flex items-center gap-1 rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-semibold text-ink-500">
               <Info className="h-3 w-3" aria-hidden />
               {intake.source === "rules" ? t("request.sourceRules") : intake.source === "merged" ? t("request.sourceLLM") : t("request.sourceLLM")}
               {" · "}
@@ -204,7 +204,7 @@ export function RequestConfirm() {
           {needsPick ? (
             <div className="mt-3">
               <p className="font-urdu text-base text-amber-800" dir="rtl">{intake.clarifying_question_ur ?? t("request.clarify")}</p>
-              <p className="mt-1 text-sm font-semibold text-stone-700">{t("request.clarify")}</p>
+              <p className="mt-1 text-sm font-semibold text-ink-700">{t("request.clarify")}</p>
               <div className="mt-3 grid grid-cols-5 gap-2">
                 {TRADES.map((tr) => (
                   <button
@@ -214,12 +214,12 @@ export function RequestConfirm() {
                     aria-pressed={trade === tr}
                     className={cn(
                       "flex flex-col items-center gap-1 rounded-xl border p-2",
-                      trade === tr ? "border-teal-600 bg-teal-50" : "border-stone-200 hover:border-teal-300",
+                      trade === tr ? "border-brand-600 bg-brand-50" : "border-ink-200 hover:border-brand-300",
                     )}
                     aria-label={t(`trade.${tr}` as DictKey)}
                   >
                     <TradeIcon trade={tr} size="sm" withLabel={false} />
-                    <span className="text-center text-[9px] leading-tight font-semibold text-stone-600">{t(`trade.${tr}` as DictKey)}</span>
+                    <span className="text-center text-[9px] leading-tight font-semibold text-ink-600">{t(`trade.${tr}` as DictKey)}</span>
                   </button>
                 ))}
               </div>
@@ -228,10 +228,10 @@ export function RequestConfirm() {
             <div className="mt-3 flex items-center gap-3">
               <TradeIcon trade={trade as Trade} size="lg" withLabel={false} />
               <div className="flex-1">
-                <p className="text-lg font-bold text-stone-900">
+                <p className="text-lg font-bold text-ink-900">
                   {t("request.tradeAsk", { trade: t(`trade.${trade}` as DictKey) })}
                 </p>
-                <p className={cn("mt-1 text-sm text-stone-600", /[\u0600-\u06FF]/.test(intake.summary_ur) && lang === "ur" && "font-urdu")} dir="auto">
+                <p className={cn("mt-1 text-sm text-ink-600", /[\u0600-\u06FF]/.test(intake.summary_ur) && lang === "ur" && "font-urdu")} dir="auto">
                   {lang === "ur" ? intake.summary_ur : intake.summary_en}
                 </p>
                 {intake.emergency.is_emergency && (
@@ -247,7 +247,7 @@ export function RequestConfirm() {
 
         {/* Urgency */}
         <section className="mt-4" aria-label={t("request.urgencyLabel")}>
-          <h2 className="mb-2 text-sm font-bold text-stone-700">{t("request.urgencyLabel")}</h2>
+          <h2 className="mb-2 text-sm font-bold text-ink-700">{t("request.urgencyLabel")}</h2>
           <div className="grid grid-cols-4 gap-2">
             {URGENCIES.map((u) => (
               <button
@@ -257,7 +257,7 @@ export function RequestConfirm() {
                 aria-pressed={urgency === u}
                 className={cn(
                   "rounded-xl border px-2 py-2.5 text-xs font-bold transition-colors",
-                  urgency === u ? "border-teal-600 bg-teal-600 text-white shadow-sm" : "border-stone-200 bg-white text-stone-600 hover:border-teal-300",
+                  urgency === u ? "border-brand-600 bg-brand-600 text-white shadow-sm" : "border-ink-200 bg-white text-ink-600 hover:border-brand-300",
                 )}
               >
                 {t(`urgency.${u}` as DictKey)}
@@ -267,14 +267,14 @@ export function RequestConfirm() {
         </section>
 
         {/* Location */}
-        <section className="mt-4 rounded-2xl border border-stone-200 bg-white p-4" aria-label={t("request.whereLabel")}>
-          <h2 className="mb-2 text-sm font-bold text-stone-700">{t("request.whereLabel")}</h2>
+        <section className="mt-4 dw-card rounded-3xl p-4 sm:p-5" aria-label={t("request.whereLabel")}>
+          <h2 className="mb-2 text-sm font-bold text-ink-700">{t("request.whereLabel")}</h2>
           <Button
             type="button"
             variant="outline"
             onClick={useMyLocation}
             disabled={geoBusy}
-            className="h-11 w-full gap-2 border-teal-200 text-teal-800"
+            className="h-11 w-full gap-2 border-brand-200 text-brand-800"
           >
             {geoBusy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Navigation className="h-4 w-4" aria-hidden />}
             {t("request.useLocation")}
@@ -292,7 +292,7 @@ export function RequestConfirm() {
             </p>
           )}
           <div className="mt-3">
-            <label className="mb-1 block text-xs font-semibold text-stone-500" htmlFor="area-select">
+            <label className="mb-1 block text-xs font-semibold text-ink-500" htmlFor="area-select">
               {t("request.areaLabel")}
             </label>
             <select
@@ -306,7 +306,7 @@ export function RequestConfirm() {
                   note: location?.note ?? "",
                 })
               }
-              className="h-11 w-full rounded-xl border border-stone-200 bg-white px-3 text-sm font-medium text-stone-800"
+              className="h-11 w-full rounded-xl border border-ink-200 bg-white px-3 text-sm font-medium text-ink-800"
             >
               <option value="">—</option>
               {areas.map((area) => (
@@ -315,7 +315,7 @@ export function RequestConfirm() {
             </select>
           </div>
           <div className="mt-3">
-            <label className="mb-1 block text-xs font-semibold text-stone-500" htmlFor="landmark-input">
+            <label className="mb-1 block text-xs font-semibold text-ink-500" htmlFor="landmark-input">
               {t("request.landmarkLabel")}
             </label>
             <Input
@@ -342,7 +342,7 @@ export function RequestConfirm() {
         <Button
           onClick={() => void findTechnicians()}
           disabled={matching || trade === "unknown"}
-          className="mt-5 h-14 w-full gap-2 rounded-2xl bg-teal-600 text-base font-bold shadow-lg shadow-teal-600/20 hover:bg-teal-700"
+          className="mt-5 h-14 w-full gap-2 rounded-2xl bg-brand-600 text-base font-bold shadow-lg shadow-brand-900/20 hover:bg-brand-700"
         >
           {matching ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <MapPin className="h-5 w-5" aria-hidden />}
           {t("request.findTech")}

@@ -63,7 +63,7 @@ export function LoginDialog({ children, onLoggedIn, open: controlledOpen, onOpen
       <DialogContent className="sm:max-w-md" dir="auto" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <KeyRound className="h-5 w-5 text-teal-700" aria-hidden />
+            <KeyRound className="h-5 w-5 text-brand-700" aria-hidden />
             {t("login.title")}
           </DialogTitle>
         </DialogHeader>
@@ -77,7 +77,7 @@ export function LoginDialog({ children, onLoggedIn, open: controlledOpen, onOpen
           <div className="grid gap-1.5">
             <Label htmlFor="dwas-phone">{t("login.phone")}</Label>
             <div className="relative">
-              <Phone className="absolute top-2.5 left-2.5 h-4 w-4 text-stone-400" aria-hidden />
+              <Phone className="absolute top-2.5 left-2.5 h-4 w-4 text-ink-400" aria-hidden />
               <Input id="dwas-phone" inputMode="tel" placeholder="03xx xxxxxxx" value={phone} onChange={(e) => setPhone(e.target.value)} className="pl-8" required />
             </div>
           </div>
@@ -102,7 +102,7 @@ export function LoginDialog({ children, onLoggedIn, open: controlledOpen, onOpen
                   aria-pressed={role === r}
                   className={cn(
                     "rounded-xl border px-2 py-2 text-xs font-semibold transition-colors",
-                    role === r ? "border-teal-600 bg-teal-50 text-teal-800" : "border-stone-200 text-stone-500 hover:bg-stone-50",
+                    role === r ? "border-brand-600 bg-brand-50 text-brand-800" : "border-ink-200 text-ink-500 hover:bg-ink-50",
                   )}
                 >
                   {t(`admin.demo.role.${r}` as DictKey)}
@@ -115,13 +115,13 @@ export function LoginDialog({ children, onLoggedIn, open: controlledOpen, onOpen
               {error}
             </p>
           )}
-          <Button type="submit" disabled={busy} className="h-11 bg-teal-600 hover:bg-teal-700">
+          <Button type="submit" disabled={busy} className="h-11 bg-brand-700 hover:bg-brand-800">
             {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null}
             {t("login.submit")}
           </Button>
         </form>
-        <div className="grid gap-2 rounded-xl bg-teal-50/70 p-3">
-          <p className="text-xs font-medium text-teal-900">{t("login.quick")}</p>
+        <div className="grid gap-2 rounded-xl bg-brand-50/70 p-3">
+          <p className="text-xs font-medium text-brand-900">{t("login.quick")}</p>
           <div className="grid grid-cols-3 gap-2">
             {QUICK_ACCOUNTS.map((acc) => (
               <motion.button
@@ -130,14 +130,14 @@ export function LoginDialog({ children, onLoggedIn, open: controlledOpen, onOpen
                 whileTap={{ scale: 0.96 }}
                 disabled={busy}
                 onClick={() => void login(acc.phone, "123456", acc.role, acc.name)}
-                className="flex flex-col items-center gap-1 rounded-xl border border-teal-200 bg-white px-2 py-2.5 text-[11px] font-semibold text-teal-900 hover:border-teal-400"
+                className="flex flex-col items-center gap-1 rounded-xl border border-brand-200 bg-white px-2 py-2.5 text-[11px] font-semibold text-brand-900 hover:border-brand-400"
               >
-                <acc.icon className="h-4 w-4 text-teal-700" aria-hidden />
+                <acc.icon className="h-4 w-4 text-brand-700" aria-hidden />
                 {t(acc.labelKey)}
               </motion.button>
             ))}
           </div>
-          <p className="flex items-start gap-1.5 text-[11px] leading-snug text-stone-500">
+          <p className="flex items-start gap-1.5 text-[11px] leading-snug text-ink-500">
             <ShieldAlert className="mt-0.5 h-3 w-3 shrink-0 text-amber-600" aria-hidden />
             {t("login.mockNote")}
           </p>

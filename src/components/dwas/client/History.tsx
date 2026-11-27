@@ -68,24 +68,24 @@ export function History() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-lg px-4 pt-4 pb-10">
-      <button type="button" onClick={() => navigate("client-home")} className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 hover:text-teal-700">
+    <div className="mx-auto w-full max-w-2xl px-4 pt-4 pb-16 sm:px-6 sm:pt-6">
+      <button type="button" onClick={() => navigate("client-home")} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 hover:text-brand-700">
         <ChevronLeft className="flip-rtl h-4 w-4" aria-hidden />
         {t("common.back")}
       </button>
-      <h1 className="mt-3 flex items-center gap-2 text-xl font-extrabold tracking-tight text-stone-900">
-        <HistoryIcon className="h-5 w-5 text-teal-700" aria-hidden />
+      <h1 className="mt-3 flex items-center gap-2 font-display text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">
+        <HistoryIcon className="h-5 w-5 text-brand-700" aria-hidden />
         {t("booking.historyTitle")}
       </h1>
 
       {bookings === null ? (
         <div className="flex min-h-[40vh] items-center justify-center">
-          <Loader2 className="h-6 w-6 animate-spin text-teal-600" aria-hidden />
+          <Loader2 className="h-6 w-6 animate-spin text-brand-600" aria-hidden />
         </div>
       ) : bookings.length === 0 ? (
-        <div className="mt-10 rounded-2xl border border-dashed border-stone-300 p-8 text-center">
-          <p className="text-sm text-stone-500">{t("booking.historyEmpty")}</p>
-          <Button className="mt-4 bg-teal-600 hover:bg-teal-700" onClick={() => navigate("client-home")}>{t("client.homeTitle")}</Button>
+        <div className="mt-10 rounded-2xl border border-dashed border-ink-300 p-8 text-center">
+          <p className="text-sm text-ink-500">{t("booking.historyEmpty")}</p>
+          <Button className="mt-4 bg-brand-700 hover:bg-brand-800" onClick={() => navigate("client-home")}>{t("client.homeTitle")}</Button>
         </div>
       ) : (
         <ul className="mt-4 space-y-2.5">
@@ -95,7 +95,7 @@ export function History() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: Math.min(i * 0.04, 0.4) }}
-              className="rounded-2xl border border-stone-200 bg-white p-3.5 shadow-sm"
+              className="rounded-2xl border border-ink-200 bg-white p-3.5 shadow-sm"
             >
               <button
                 type="button"
@@ -107,10 +107,10 @@ export function History() {
                 aria-label={booking.summary_en}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <p className="truncate text-sm font-bold text-stone-900">{booking.technicianName}</p>
+                  <p className="truncate text-sm font-bold text-ink-900">{booking.technicianName}</p>
                   <StatusPill status={booking.status} />
                 </div>
-                <p className="mt-1 truncate text-xs text-stone-500" dir="auto">
+                <p className="mt-1 truncate text-xs text-ink-500" dir="auto">
                   {t(`trade.${booking.trade}` as DictKey)} · {new Date(booking.createdAt).toLocaleDateString()}
                   {booking.finalPrice !== undefined ? ` · ${booking.finalPrice.toLocaleString()} ${t("common.pkr")}` : ""}
                 </p>
@@ -121,7 +121,7 @@ export function History() {
                   variant="outline"
                   disabled={rebooking === booking.id}
                   onClick={() => void rebook(booking)}
-                  className="h-9 gap-1.5 border-teal-200 text-xs font-bold text-teal-800"
+                  className="h-9 gap-1.5 border-brand-200 text-xs font-bold text-brand-800"
                 >
                   {rebooking === booking.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden /> : <RotateCcw className="h-3.5 w-3.5" aria-hidden />}
                   {t("booking.rebook")}

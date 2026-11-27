@@ -41,27 +41,27 @@ function ResultCard({ card, index, onOpen, onBook, bookingBusy }: {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.07, duration: 0.35 }}
       className={cn(
-        "rounded-2xl border bg-white p-4 shadow-sm transition-colors",
-        card.isNewcomerSlot ? "border-dashed border-teal-400" : "border-stone-200 hover:border-teal-300",
+        "dw-card dw-lift rounded-3xl p-4 sm:p-5",
+        card.isNewcomerSlot ? "border-dashed border-brand-400" : "border-ink-200 hover:border-brand-300",
       )}
     >
       <div className="flex items-start gap-3">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-lg font-extrabold text-teal-800">
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-700 font-display text-lg font-extrabold text-white shadow-sm shadow-brand-900/20">
           {card.name.split(" ").map((p) => p[0]).slice(0, 2).join("")}
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <button type="button" onClick={onOpen} className="truncate text-start text-base font-bold text-stone-900 hover:text-teal-700" aria-label={card.name}>
+            <button type="button" onClick={onOpen} className="truncate text-start text-base font-bold text-ink-900 hover:text-brand-700" aria-label={card.name}>
               {card.name}
             </button>
             {card.isNewcomerSlot && (
-              <span className="rounded-full bg-teal-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{t("common.new")}</span>
+              <span className="rounded-full bg-brand-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{t("common.new")}</span>
             )}
           </div>
-          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-500">
+          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500">
             <span className="flex items-center gap-1">
               <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-500" aria-hidden />
-              <strong className="text-stone-700">{card.ratingAvg ?? "—"}</strong>
+              <strong className="text-ink-700">{card.ratingAvg ?? "—"}</strong>
               <span>({card.jobsCompleted} {t("common.jobs")})</span>
             </span>
             <span>{card.distanceKmRounded} {t("common.km")}</span>
@@ -78,25 +78,25 @@ function ResultCard({ card, index, onOpen, onBook, bookingBusy }: {
           {card.priceBand ? (
             <PriceBand min={card.priceBand.min} max={card.priceBand.max} />
           ) : (
-            <span className="text-xs text-stone-400">{t("card.noPrice")}</span>
+            <span className="text-xs text-ink-400">{t("card.noPrice")}</span>
           )}
         </div>
       </div>
       {reasons.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="reasons">
           {reasons.slice(0, 2).map((reason) => (
-            <li key={reason} className="rounded-full bg-teal-50 px-2.5 py-1 text-[11px] font-semibold text-teal-800">
+            <li key={reason} className="rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-semibold text-brand-800">
               {reason}
             </li>
           ))}
         </ul>
       )}
       <div className="mt-3 flex gap-2">
-        <Button variant="outline" size="sm" onClick={onOpen} className="h-10 flex-1 gap-1 border-stone-200 text-sm font-semibold text-stone-700">
+        <Button variant="outline" size="sm" onClick={onOpen} className="h-10 flex-1 gap-1 border-ink-200 text-sm font-semibold text-ink-700">
           {t("profile.title")}
           <ChevronRight className="flip-rtl h-4 w-4" aria-hidden />
         </Button>
-        <Button size="sm" onClick={onBook} disabled={bookingBusy} className="h-10 flex-1 gap-1 bg-teal-600 text-sm font-bold hover:bg-teal-700">
+        <Button size="sm" onClick={onBook} disabled={bookingBusy} className="h-10 flex-1 gap-1 bg-brand-700 text-sm font-bold hover:bg-brand-800">
           <Banknote className="h-4 w-4" aria-hidden />
           {t("profile.book")}
         </Button>
@@ -141,21 +141,21 @@ export function Results() {
 
   if (results.length === 0) {
     return (
-      <div className="mx-auto w-full max-w-lg px-4 pt-16 pb-10 text-center">
-        <p className="text-sm text-stone-500">{t("results.empty")}</p>
+      <div className="mx-auto w-full max-w-2xl px-4 pt-16 pb-16 text-center sm:px-6">
+        <p className="text-sm text-ink-500">{t("results.empty")}</p>
         <Button variant="outline" className="mt-4" onClick={() => navigate("client-request")}>{t("results.back")}</Button>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-lg px-4 pt-4 pb-10">
-      <button type="button" onClick={() => navigate("client-request")} className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 hover:text-teal-700">
+    <div className="mx-auto w-full max-w-2xl px-4 pt-4 pb-16 sm:px-6 sm:pt-6">
+      <button type="button" onClick={() => navigate("client-request")} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 hover:text-brand-700">
         <ChevronLeft className="flip-rtl h-4 w-4" aria-hidden />
         {t("results.back")}
       </button>
-      <h1 className="mt-2 text-xl font-extrabold tracking-tight text-stone-900">{t("results.title")}</h1>
-      <p className="mt-0.5 text-sm text-stone-500">
+      <h1 className="mt-2 font-display text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t("results.title")}</h1>
+      <p className="mt-0.5 text-sm text-ink-500">
         {meta ? `${t(`trade.${meta.trade}` as DictKey)} · ${t(`urgency.${meta.urgency}` as DictKey)} · ` : ""}
         {t("results.sub")}
       </p>
@@ -163,12 +163,12 @@ export function Results() {
       <Button
         onClick={() => void book()}
         disabled={quickBusy}
-        className="mt-4 h-13 w-full gap-2 rounded-2xl bg-teal-600 py-4 font-bold shadow-lg shadow-teal-600/20 hover:bg-teal-700"
+        className="dw-press mt-4 h-14 w-full gap-2 rounded-2xl bg-brand-700 py-4 text-base font-bold text-white shadow-lg shadow-brand-900/25 hover:bg-brand-800"
       >
         {quickBusy ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Zap className="h-5 w-5" aria-hidden />}
         {t("results.quickBook")}
       </Button>
-      <p className="mt-1.5 text-center text-[11px] text-stone-400">{t("results.indicative")}</p>
+      <p className="mt-1.5 text-center text-[11px] text-ink-400">{t("results.indicative")}</p>
 
       <div className="mt-5 space-y-3">
         {results.map((card, i) => (

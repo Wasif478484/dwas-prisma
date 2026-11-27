@@ -64,25 +64,25 @@ function IncomingCard({ booking, onAccept, onDecline, busy }: {
         <CountdownRing seconds={secondsLeft} total={booking.urgency === "now" ? 120 : 300} />
       </div>
 
-      <p className="mt-2 font-urdu text-xl leading-relaxed font-bold text-stone-900" dir="rtl">
+      <p className="mt-2 font-urdu text-xl leading-relaxed font-bold text-ink-900" dir="rtl">
         {booking.summary_ur || booking.summary_en}
       </p>
-      <p className="mt-1 text-xs text-stone-500" dir="ltr">{booking.summary_en}</p>
+      <p className="mt-1 text-xs text-ink-500" dir="ltr">{booking.summary_en}</p>
 
       <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-        <div className="rounded-xl bg-stone-50 p-2">
-          <p className="text-[10px] font-semibold text-stone-400">{t("tech.job.area")}</p>
-          <p className="mt-0.5 truncate text-xs font-bold text-stone-800">{booking.location.areaId?.replace(/-/g, " ") ?? "—"}</p>
+        <div className="rounded-xl bg-ink-50 p-2">
+          <p className="text-[10px] font-semibold text-ink-400">{t("tech.job.area")}</p>
+          <p className="mt-0.5 truncate text-xs font-bold text-ink-800">{booking.location.areaId?.replace(/-/g, " ") ?? "—"}</p>
         </div>
-        <div className="rounded-xl bg-stone-50 p-2">
-          <p className="text-[10px] font-semibold text-stone-400">{t("booking.priceBand")}</p>
-          <p className="mt-0.5 text-xs font-bold text-teal-800">
+        <div className="rounded-xl bg-ink-50 p-2">
+          <p className="text-[10px] font-semibold text-ink-400">{t("booking.priceBand")}</p>
+          <p className="mt-0.5 text-xs font-bold text-brand-800">
             {booking.priceBand ? `${booking.priceBand.min}–${booking.priceBand.max}` : "—"}
           </p>
         </div>
-        <div className="rounded-xl bg-stone-50 p-2">
-          <p className="text-[10px] font-semibold text-stone-400">{t("request.urgencyLabel")}</p>
-          <p className="mt-0.5 text-xs font-bold text-stone-800">{t(`urgency.${booking.urgency}` as DictKey)}</p>
+        <div className="rounded-xl bg-ink-50 p-2">
+          <p className="text-[10px] font-semibold text-ink-400">{t("request.urgencyLabel")}</p>
+          <p className="mt-0.5 text-xs font-bold text-ink-800">{t(`urgency.${booking.urgency}` as DictKey)}</p>
         </div>
       </div>
 
@@ -113,11 +113,11 @@ function IncomingCard({ booking, onAccept, onDecline, busy }: {
               key={reason.code}
               type="button"
               onClick={() => onDecline(reason.code)}
-              className="flex min-h-20 flex-col items-center justify-center gap-1 rounded-2xl border border-stone-200 bg-white text-xs font-semibold text-stone-700 hover:border-rose-300"
+              className="flex min-h-20 flex-col items-center justify-center gap-1 rounded-2xl border border-ink-200 bg-white text-xs font-semibold text-ink-700 hover:border-rose-300"
             >
               <reason.icon className="h-5 w-5 text-rose-500" aria-hidden />
               <span className="font-urdu text-sm" dir="rtl">{t(reason.key)}</span>
-              <span className="text-[9px] text-stone-400">{reason.code.replace(/_/g, " ")}</span>
+              <span className="text-[9px] text-ink-400">{reason.code.replace(/_/g, " ")}</span>
             </button>
           ))}
         </div>
@@ -125,7 +125,7 @@ function IncomingCard({ booking, onAccept, onDecline, busy }: {
 
       <div className="mt-3 flex items-center justify-between">
         <StatusPill status={booking.status} />
-        <span className="text-[10px] text-stone-400">{booking.clientName ?? ""}</span>
+        <span className="text-[10px] text-ink-400">{booking.clientName ?? ""}</span>
       </div>
     </motion.div>
   );
@@ -196,23 +196,23 @@ export function TechJobs() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-lg px-4 pt-4 pb-10">
-      <button type="button" onClick={() => navigate("tech-home")} className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 hover:text-teal-700">
+    <div className="mx-auto w-full max-w-2xl px-4 pt-4 pb-16 sm:px-6 sm:pt-6">
+      <button type="button" onClick={() => navigate("tech-home")} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 hover:text-brand-700">
         <ChevronLeft className="flip-rtl h-4 w-4" aria-hidden />
         {t("common.back")}
       </button>
-      <h1 className="mt-3 font-urdu text-2xl font-extrabold text-stone-900" dir="rtl">{t("tech.jobsTitle")}</h1>
+      <h1 className="mt-3 font-urdu text-2xl font-extrabold text-ink-900" dir="rtl">{t("tech.jobsTitle")}</h1>
 
       {loading ? (
         <div className="flex min-h-[40vh] items-center justify-center">
-          <Loader2 className="h-6 w-6 animate-spin text-teal-600" aria-hidden />
+          <Loader2 className="h-6 w-6 animate-spin text-brand-600" aria-hidden />
         </div>
       ) : (
         <>
           <section className="mt-4" aria-label={t("tech.jobsTitle")}>
             <AnimatePresence mode="popLayout">
               {incoming.length === 0 ? (
-                <motion.p key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl border border-dashed border-stone-300 p-6 text-center font-urdu text-base text-stone-400" dir="rtl">
+                <motion.p key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl border border-dashed border-ink-300 p-6 text-center font-urdu text-base text-ink-400" dir="rtl">
                   {t("tech.jobsEmpty")}
                 </motion.p>
               ) : (
@@ -231,9 +231,9 @@ export function TechJobs() {
           </section>
 
           <section className="mt-6" aria-label={t("tech.currentJobs")}>
-            <h2 className="font-urdu mb-2 text-lg font-bold text-stone-700" dir="rtl">{t("tech.currentJobs")}</h2>
+            <h2 className="font-urdu mb-2 text-lg font-bold text-ink-700" dir="rtl">{t("tech.currentJobs")}</h2>
             {active.length === 0 ? (
-              <p className="rounded-2xl border border-stone-200 bg-white p-4 text-center text-sm text-stone-400">{t("tech.noCurrent")}</p>
+              <p className="dw-card rounded-3xl p-4 sm:p-5 text-center text-sm text-ink-400">{t("tech.noCurrent")}</p>
             ) : (
               <ul className="space-y-2.5">
                 {active.map((booking) => (
@@ -244,17 +244,17 @@ export function TechJobs() {
                         openTechJob(booking.id);
                         navigate("tech-job");
                       }}
-                      className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white p-3.5 text-start hover:border-teal-400"
+                      className="flex w-full items-center gap-3 rounded-2xl border border-ink-200 bg-white p-3.5 text-start hover:border-brand-400"
                     >
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-600 text-white">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-white">
                         <Wrench className="h-5 w-5" aria-hidden />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate font-urdu text-sm font-bold text-stone-900" dir="rtl">{booking.summary_ur || booking.summary_en}</span>
-                        <span className="mt-0.5 block text-[11px] text-stone-500">{booking.location.areaId?.replace(/-/g, " ")}</span>
+                        <span className="block truncate font-urdu text-sm font-bold text-ink-900" dir="rtl">{booking.summary_ur || booking.summary_en}</span>
+                        <span className="mt-0.5 block text-[11px] text-ink-500">{booking.location.areaId?.replace(/-/g, " ")}</span>
                       </span>
                       <StatusPill status={booking.status} />
-                      <Banknote className={cn("h-4 w-4 text-stone-300")} aria-hidden />
+                      <Banknote className={cn("h-4 w-4 text-ink-300")} aria-hidden />
                     </button>
                   </li>
                 ))}

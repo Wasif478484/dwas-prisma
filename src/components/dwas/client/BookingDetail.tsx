@@ -73,8 +73,8 @@ export function BookingDetail() {
 
   if (error && !booking) {
     return (
-      <div className="mx-auto w-full max-w-lg px-4 pt-16 pb-10 text-center">
-        <p className="text-sm text-stone-500">{error}</p>
+      <div className="mx-auto w-full max-w-2xl px-4 pt-16 pb-16 text-center sm:px-6">
+        <p className="text-sm text-ink-500">{error}</p>
         <Button variant="outline" className="mt-4" onClick={() => navigate("client-history")}>{t("common.back")}</Button>
       </div>
     );
@@ -82,7 +82,7 @@ export function BookingDetail() {
   if (!booking) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <Loader2 className="h-6 w-6 animate-spin text-teal-600" aria-hidden />
+        <Loader2 className="h-6 w-6 animate-spin text-brand-600" aria-hidden />
       </div>
     );
   }
@@ -123,47 +123,47 @@ export function BookingDetail() {
   const waText = encodeURIComponent(`${booking.summary_en} — ${booking.shareToken}`);
 
   return (
-    <div className="mx-auto w-full max-w-lg px-4 pt-4 pb-10">
-      <button type="button" onClick={() => navigate("client-history")} className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 hover:text-teal-700">
+    <div className="mx-auto w-full max-w-2xl px-4 pt-4 pb-16 sm:px-6 sm:pt-6">
+      <button type="button" onClick={() => navigate("client-history")} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 hover:text-brand-700">
         <ChevronLeft className="flip-rtl h-4 w-4" aria-hidden />
         {t("booking.historyTitle")}
       </button>
 
       <div className="mt-3 flex items-center justify-between gap-2">
-        <h1 className="text-xl font-extrabold tracking-tight text-stone-900">{t("booking.title")}</h1>
+        <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink-900 sm:text-3xl">{t("booking.title")}</h1>
         <StatusPill status={booking.status} />
       </div>
 
       {/* Summary card */}
-      <div className="mt-3 rounded-2xl border border-stone-200 bg-white p-4">
+      <div className="mt-3 dw-card rounded-3xl p-4 sm:p-5">
         <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-50 text-lg font-extrabold text-teal-800">
+          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-50 text-lg font-extrabold text-brand-800">
             {booking.technicianName.split(" ").map((p) => p[0]).slice(0, 2).join("")}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-bold text-stone-900">{booking.technicianName}</p>
-            <p className="text-xs text-stone-500">{t(`trade.${booking.trade}` as DictKey)} · {booking.jobType.replace(/_/g, " ")}</p>
+            <p className="text-sm font-bold text-ink-900">{booking.technicianName}</p>
+            <p className="text-xs text-ink-500">{t(`trade.${booking.trade}` as DictKey)} · {booking.jobType.replace(/_/g, " ")}</p>
           </div>
         </div>
-        <p className={cn("mt-3 text-sm leading-relaxed text-stone-700", lang === "ur" && "font-urdu")} dir="auto">
+        <p className={cn("mt-3 text-sm leading-relaxed text-ink-700", lang === "ur" && "font-urdu")} dir="auto">
           {lang === "ur" ? booking.summary_ur : booking.summary_en}
         </p>
         {booking.location.note && (
-          <p className="mt-1 flex items-center gap-1 text-xs text-stone-500">
+          <p className="mt-1 flex items-center gap-1 text-xs text-ink-500">
             <Timer className="h-3 w-3" aria-hidden /> {booking.location.note} · {booking.location.areaId?.replace(/-/g, " ")}
           </p>
         )}
-        <div className="mt-3 flex items-center justify-between rounded-xl bg-teal-50/60 px-3 py-2.5">
-          <span className="text-xs font-semibold text-stone-600">
+        <div className="mt-3 flex items-center justify-between rounded-xl bg-brand-50/60 px-3 py-2.5">
+          <span className="text-xs font-semibold text-ink-600">
             {t("booking.priceBand")}
             {booking.finalPrice !== undefined && (booking.status === "completed" || booking.status === "reviewed") ? ` → ${t("booking.finalPrice")}` : ""}
           </span>
           {booking.finalPrice !== undefined && (booking.status === "completed" || booking.status === "reviewed") ? (
-            <span className="font-extrabold text-teal-800">{booking.finalPrice.toLocaleString()} {t("common.pkr")}</span>
+            <span className="font-extrabold text-brand-800">{booking.finalPrice.toLocaleString()} {t("common.pkr")}</span>
           ) : booking.priceBand ? (
             <PriceBand min={booking.priceBand.min} max={booking.priceBand.max} />
           ) : (
-            <span className="text-xs text-stone-400">{t("card.noPrice")}</span>
+            <span className="text-xs text-ink-400">{t("card.noPrice")}</span>
           )}
         </div>
       </div>
@@ -210,7 +210,7 @@ export function BookingDetail() {
       )}
 
       {/* Tracker */}
-      <div className="mt-3 rounded-2xl border border-stone-200 bg-white p-4">
+      <div className="mt-3 dw-card rounded-3xl p-4 sm:p-5">
         <StatusTracker status={booking.status} />
       </div>
 
@@ -235,14 +235,14 @@ export function BookingDetail() {
         </div>
       ) : (
         !["requested"].includes(booking.status) && booking.status !== "completed" && booking.status !== "reviewed" && (
-          <p className="mt-3 rounded-xl border border-stone-200 bg-white p-3 text-xs text-stone-500">{t("booking.contactHidden")}</p>
+          <p className="mt-3 rounded-xl border border-ink-200 bg-white p-3 text-xs text-ink-500">{t("booking.contactHidden")}</p>
         )
       )}
 
       {/* Review (C10) — unlocks at completed */}
       {canReview && (
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 rounded-2xl border border-teal-200 bg-white p-4">
-          <h2 className="font-urdu text-lg font-bold text-stone-900" dir="rtl">{t("review.title")}</h2>
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 rounded-2xl border border-brand-200 bg-white p-4">
+          <h2 className="font-urdu text-lg font-bold text-ink-900" dir="rtl">{t("review.title")}</h2>
           <p className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-emerald-700">
             <CheckCircle2 className="h-3.5 w-3.5" aria-hidden />
             {t("booking.done")}
@@ -259,7 +259,7 @@ export function BookingDetail() {
                 aria-pressed={tags.includes(tag)}
                 className={cn(
                   "rounded-full border px-3 py-1.5 text-xs font-semibold",
-                  tags.includes(tag) ? "border-teal-600 bg-teal-600 text-white" : "border-stone-200 text-stone-600",
+                  tags.includes(tag) ? "border-brand-600 bg-brand-600 text-white" : "border-ink-200 text-ink-600",
                 )}
               >
                 {t(`review.tag.${tag}` as DictKey)}
@@ -268,11 +268,11 @@ export function BookingDetail() {
           </div>
           <div className="mt-3">
             <div className="mb-1.5 flex items-center justify-between">
-              <span className="text-xs font-semibold text-stone-500">{t("review.comment")}</span>
+              <span className="text-xs font-semibold text-ink-500">{t("review.comment")}</span>
               <button
                 type="button"
                 onClick={() => (commentDictation.listening ? commentDictation.stop() : commentDictation.start())}
-                className={cn("rounded-full p-2", commentDictation.listening ? "bg-rose-100 text-rose-600" : "bg-teal-50 text-teal-700")}
+                className={cn("rounded-full p-2", commentDictation.listening ? "bg-rose-100 text-rose-600" : "bg-brand-50 text-brand-700")}
                 aria-label={t("client.micStart")}
               >
                 <Mic className={cn("h-4 w-4", commentDictation.listening && "animate-pulse")} aria-hidden />
@@ -289,7 +289,7 @@ export function BookingDetail() {
           <Button
             onClick={() => void submitReview()}
             disabled={stars < 1 || submittingReview}
-            className="mt-3 h-12 w-full rounded-xl bg-teal-600 font-bold hover:bg-teal-700"
+            className="mt-3 h-12 w-full rounded-xl bg-brand-700 font-bold hover:bg-brand-800"
           >
             {submittingReview ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Star className="h-4 w-4" aria-hidden />}
             {t("review.submit")}
@@ -306,7 +306,7 @@ export function BookingDetail() {
 
       {/* Terminal state note */}
       {["declined", "expired", "cancelled_client", "cancelled_tech", "no_show"].includes(booking.status) && (
-        <div className="mt-3 rounded-2xl border border-stone-200 bg-white p-4 text-center text-sm text-stone-600">
+        <div className="mt-3 dw-card rounded-3xl p-4 sm:p-5 text-center text-sm text-ink-600">
           {t(`status.${booking.status}` as DictKey)}
         </div>
       )}
@@ -328,7 +328,7 @@ export function BookingDetail() {
           variant="ghost"
           onClick={() => void act("no_show", { reason: "client_report" })}
           disabled={busy}
-          className="mt-2 h-11 w-full gap-2 text-stone-500"
+          className="mt-2 h-11 w-full gap-2 text-ink-500"
         >
           <UserX className="h-4 w-4" aria-hidden />
           {t("booking.noShow")}

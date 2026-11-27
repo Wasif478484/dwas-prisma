@@ -5,7 +5,7 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Wrench, LogOut, Home, CalendarDays } from "lucide-react";
+import { Wrench, LogOut, Home, CalendarDays, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDw } from "@/lib/store";
 import { LangToggle } from "@/components/dwas/shared";
@@ -42,58 +42,63 @@ function TopBar() {
   const view = useDw((s) => s.view);
   const navigate = useDw((s) => s.navigate);
   const logout = useDw((s) => s.logout);
-  const setLoginOpen = useDw((s) => s.setLoginOpen);
   const isClientView = view.startsWith("client-");
   const isTechView = view.startsWith("tech-");
 
   return (
-    <header className="sticky top-0 z-30 border-b border-stone-200/80 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
+    <header className="dw-glass sticky top-0 z-30 border-b border-ink-200/70">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-6">
         <button
           type="button"
           onClick={() => navigate("landing")}
-          className="flex items-center gap-2"
+          className="dw-press flex items-center gap-2.5 rounded-xl py-1 pe-2"
           aria-label="DWAS home"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white">
-            <Wrench className="h-4 w-4" aria-hidden />
+          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-brand-700 text-white shadow-sm shadow-brand-900/20">
+            <Wrench className="h-[18px] w-[18px]" aria-hidden />
+            <span className="absolute -end-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-ink-50 bg-saffron-400" aria-hidden />
           </span>
-          <span className="text-base font-extrabold tracking-tight text-stone-900">DWAS</span>
-          <span className="hidden rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-semibold text-stone-500 sm:inline">
+          <span className="font-display text-[17px] font-extrabold tracking-tight text-ink-900">DWAS</span>
+          <span className="hidden rounded-full border border-ink-200 bg-white px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink-500 md:inline">
             {t("common.demoData")}
           </span>
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {isClientView && (
-            <>
-              <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs" onClick={() => navigate("client-home")} aria-label={t("client.homeTitle")}>
+            <nav className="flex items-center rounded-xl border border-ink-200 bg-white p-0.5" aria-label="Client navigation">
+              <Button variant="ghost" size="sm" className="h-8 gap-1.5 rounded-lg px-2 text-xs text-ink-700 sm:px-2.5" onClick={() => navigate("client-home")} aria-label={t("client.homeTitle")}>
                 <Home className="h-4 w-4" aria-hidden />
                 <span className="hidden sm:inline">{t("client.homeTitle")}</span>
               </Button>
-              <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs" onClick={() => navigate("client-history")} aria-label={t("booking.historyTitle")}>
+              <Button variant="ghost" size="sm" className="h-8 gap-1.5 rounded-lg px-2 text-xs text-ink-700 sm:px-2.5" onClick={() => navigate("client-history")} aria-label={t("booking.historyTitle")}>
                 <CalendarDays className="h-4 w-4" aria-hidden />
                 <span className="hidden sm:inline">{t("booking.historyTitle")}</span>
               </Button>
-            </>
+            </nav>
           )}
           {isTechView && (
-            <Button variant="ghost" size="sm" className="h-9 text-xs" onClick={() => navigate("tech-home")} aria-label={t("tech.homeTitle")}>
+            <Button variant="ghost" size="sm" className="h-8 rounded-lg px-3 text-xs text-ink-700" onClick={() => navigate("tech-home")} aria-label={t("tech.homeTitle")}>
               {t("tech.homeTitle")}
             </Button>
           )}
           <LangToggle />
           {user ? (
             <div className="flex items-center gap-1.5">
-              <span className="hidden max-w-28 truncate text-xs font-semibold text-stone-600 sm:inline">{user.name}</span>
-              <span className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-bold text-teal-800">{user.role}</span>
-              <Button variant="ghost" size="sm" className="h-9 w-9 p-0" onClick={logout} aria-label={t("common.logout")}>
+              <span className="hidden items-center gap-2 rounded-full border border-ink-200 bg-white ps-1 pe-3 py-1 sm:inline-flex">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 text-[11px] font-bold text-brand-800" aria-hidden>
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+                <span className="max-w-24 truncate text-xs font-semibold text-ink-800">{user.name}</span>
+              </span>
+              <span className="rounded-full bg-saffron-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-saffron-800">{user.role}</span>
+              <Button variant="ghost" size="sm" className="h-9 w-9 rounded-lg p-0 text-ink-600" onClick={logout} aria-label={t("common.logout")}>
                 <LogOut className="h-4 w-4" aria-hidden />
               </Button>
             </div>
           ) : (
             <LoginDialog onLoggedIn={(u) => navigate(u.role === "admin" ? "admin" : u.role === "technician" ? "tech-home" : "client-home")}>
-              <Button size="sm" className="h-9 bg-teal-600 text-xs font-bold hover:bg-teal-700">{t("common.demoLogin")}</Button>
+              <Button size="sm" aria-label={t("common.demoLogin")} className="h-9 rounded-lg bg-brand-700 px-3 text-xs font-bold hover:bg-brand-800 sm:px-4"><LogIn className="h-4 w-4 sm:hidden" aria-hidden /><span className="hidden sm:inline">{t("common.demoLogin")}</span></Button>
             </LoginDialog>
           )}
         </div>
@@ -105,10 +110,15 @@ function TopBar() {
 function Footer() {
   const t = useDw((s) => s.t);
   return (
-    <footer className="safe-bottom mt-auto border-t border-stone-200 bg-white">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-1.5 px-4 py-4 text-center sm:flex-row sm:px-6 sm:text-start">
-        <p className="text-xs text-stone-500">{t("landing.footer")}</p>
-        <p className="font-urdu text-sm text-teal-800" dir="auto">{t("app.quote")}</p>
+    <footer className="safe-bottom mt-auto bg-brand-900 text-brand-100">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 px-4 py-8 text-center sm:flex-row sm:px-6 sm:text-start">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-white">
+            <Wrench className="h-4 w-4" aria-hidden />
+          </span>
+          <p className="text-xs leading-relaxed text-brand-200">{t("landing.footer")}</p>
+        </div>
+        <p className="font-urdu text-base text-saffron-300" dir="auto">{t("app.quote")}</p>
       </div>
     </footer>
   );
@@ -160,20 +170,20 @@ export default function Page() {
   })();
 
   if (!mounted) {
-    return <div className="min-h-screen flex flex-col bg-stone-50" aria-hidden />;
+    return <div className="dw-paper min-h-screen flex flex-col" aria-hidden />;
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-stone-50 text-stone-900">
+    <div className="dw-paper flex min-h-screen flex-col text-ink-900">
       {view !== "landing" && <TopBar />}
       <main className="flex-1">
         <AnimatePresence mode="wait">
           <motion.div
             key={view}
-            initial={{ opacity: 0, y: 6 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="min-h-full"
           >
             {screen}
